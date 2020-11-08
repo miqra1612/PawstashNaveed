@@ -62,14 +62,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CameraViews.cs" />
-    <Compile Include="Assets\GameUIController.cs" />
-    <Compile Include="Assets\GamesManager.cs" />
-    <Compile Include="Assets\NewGameController.cs" />
-    <Compile Include="Assets\PuzzleGenerator.cs" />
-    <Compile Include="Assets\SceneController.cs" />
-    <Compile Include="Assets\SettingManager.cs" />
-    <Compile Include="Assets\TilesColor.cs" />
+    <Compile Include="Assets\IklanManager.cs" />
+    <Compile Include="Assets\MenuUIController.cs" />
+    <Compile Include="Assets\Puzzle grid\CameraViews.cs" />
+    <Compile Include="Assets\Puzzle grid\GameUIController.cs" />
+    <Compile Include="Assets\Puzzle grid\GamesManager.cs" />
+    <Compile Include="Assets\Puzzle grid\NewGameController.cs" />
+    <Compile Include="Assets\Puzzle grid\PuzzleGenerator.cs" />
+    <Compile Include="Assets\Puzzle grid\SceneController.cs" />
+    <Compile Include="Assets\Puzzle grid\SettingManager.cs" />
+    <Compile Include="Assets\Puzzle grid\TilesColor.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/unity 2019.4.1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -689,7 +691,16 @@
       <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="GoogleMobileAds.csproj">
+      <Project>{13EE0ABD-FAF1-DD23-AC81-D818DFDEE938}</Project>
+      <Name>GoogleMobileAds</Name>
+    </ProjectReference>
+    <ProjectReference Include="GoogleMobileAds.Editor.csproj">
+      <Project>{92DF2B4D-EA90-50C5-7F40-DBF260BBDF0A}</Project>
+      <Name>GoogleMobileAds.Editor</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
