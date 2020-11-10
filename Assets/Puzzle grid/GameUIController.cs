@@ -32,12 +32,14 @@ public class GameUIController : MonoBehaviour
     private int gameRemaining = 4;
 
     private GamesManager gameManager;
-    private IklanManager adsView;
+    private AdsManager adsView;
+    private PuzzleGenerator puzzleGenerator;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GetComponent<GamesManager>();    
+        gameManager = GetComponent<GamesManager>();
+        puzzleGenerator = GameObject.FindGameObjectWithTag("manager").GetComponent<PuzzleGenerator>();
     }
 
     // Update is called once per frame
@@ -61,16 +63,83 @@ public class GameUIController : MonoBehaviour
         Level.text = gameManager.difficulty.text;
         Result.text = winningToday.ToString() + " wins today! it's " + winningToday.ToString() + " more than yesterday!";
 
-        adsView = GameObject.FindGameObjectWithTag("addManager").GetComponent<IklanManager>();
+        adsView = GameObject.FindGameObjectWithTag("addManager").GetComponent<AdsManager>();
 
         if (adsView != null)
         {
             adsView.HideBanner();
+            Debug.Log("hiding banner");
         }
+
+        if(Level.text == "Easy")
+        {
+            SaveLoadData.instance.playerData.eassyScore += score;
+            SaveLoadData.instance.playerData.eassyTotalScore += finalScore;
+            SaveLoadData.instance.playerData.eassyGameLeft--;
+            SaveLoadData.instance.playerData.eassyGameWon++;
+            SaveLoadData.instance.playerData.eassyGamePlayed++;
+            SaveLoadData.instance.playerData.eassyWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+            SaveLoadData.instance.playerData.eassyBestTime = time;
+        }
+        else if (Level.text == "Medium")
+        {
+            SaveLoadData.instance.playerData.mediumScore += score;
+            SaveLoadData.instance.playerData.mediumTotalScore += finalScore;
+            SaveLoadData.instance.playerData.mediumGameLeft--;
+            SaveLoadData.instance.playerData.mediumGameWon++;
+            SaveLoadData.instance.playerData.mediumGamePlayed++;
+            SaveLoadData.instance.playerData.mediumWinRate = ((float)SaveLoadData.instance.playerData.mediumGameWon / (float)SaveLoadData.instance.playerData.mediumGamePlayed) * 100;
+            SaveLoadData.instance.playerData.mediumBestTime = time;
+        }
+        else if (Level.text == "Hard")
+        {
+            SaveLoadData.instance.playerData.hardScore += score;
+            SaveLoadData.instance.playerData.hardTotalScore += finalScore;
+            SaveLoadData.instance.playerData.hardGameLeft--;
+            SaveLoadData.instance.playerData.hardGameWon++;
+            SaveLoadData.instance.playerData.hardGamePlayed++;
+            SaveLoadData.instance.playerData.hardWinRate = ((float)SaveLoadData.instance.playerData.hardGameWon / (float)SaveLoadData.instance.playerData.hardGamePlayed) * 100;
+            SaveLoadData.instance.playerData.hardBestTime = time;
+        }
+        else if (Level.text == "Expert")
+        {
+            SaveLoadData.instance.playerData.expertScore += score;
+            SaveLoadData.instance.playerData.expertTotalScore += finalScore;
+            SaveLoadData.instance.playerData.expertGameLeft--;
+            SaveLoadData.instance.playerData.expertGameWon++;
+            SaveLoadData.instance.playerData.expertGamePlayed++;
+            SaveLoadData.instance.playerData.expertWinRate = ((float)SaveLoadData.instance.playerData.expertGameWon / (float)SaveLoadData.instance.playerData.expertGamePlayed) * 100;
+            SaveLoadData.instance.playerData.expertBestTime = time;
+        }
+        else if (Level.text == "Giant")
+        {
+            SaveLoadData.instance.playerData.giantScore += score;
+            SaveLoadData.instance.playerData.giantTotalScore += finalScore;
+            SaveLoadData.instance.playerData.giantGameLeft--;
+            SaveLoadData.instance.playerData.giantGameWon++;
+            SaveLoadData.instance.playerData.giantGamePlayed++;
+            SaveLoadData.instance.playerData.giantWinRate = ((float)SaveLoadData.instance.playerData.giantGameWon / (float)SaveLoadData.instance.playerData.giantGamePlayed) * 100;
+            SaveLoadData.instance.playerData.giantBestTime = time;
+        }
+
+        SaveLoadData.instance.playerData.continueGame = "false";
+
+        SaveLoadData.instance.SavingData();
     }
 
     public void PauseGame()
     {
+        SaveLoadData.instance.playerData.tilesColor.Clear();
+
+        for (int i = 0; i < puzzleGenerator.generatedPuzzle.Count; i++)
+        {
+            SaveLoadData.instance.playerData.tilesColor.Add(puzzleGenerator.generatedPuzzle[i].GetComponent<TilesColor>().colorID);
+        }
+
+        SaveLoadData.instance.playerData.continueGame = "true";
+        SaveLoadData.instance.SavingData();
+
+
         gameManager.UIpanels[2].SetActive(true);
         PauseInfo();
         Time.timeScale = 0;
@@ -115,7 +184,73 @@ public class GameUIController : MonoBehaviour
 
     public void GameOverInfo()
     {
-        levelDisplay.text = "Level " + gameManager.difficulty.text + " you have " + gameRemaining + " for today.";
+        string difficulty = gameManager.difficulty.text;
+
+        if (difficulty == "Easy")
+        {
+            
+            if (SaveLoadData.instance.playerData.eassyGameLeft > 0)
+            {
+                SaveLoadData.instance.playerData.eassyGameLeft--;
+                SaveLoadData.instance.playerData.eassyGamePlayed++;
+                SaveLoadData.instance.playerData.eassyWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+
+            }
+            gameRemaining = SaveLoadData.instance.playerData.eassyGameLeft;
+
+        }
+        else if (difficulty == "Medium")
+        {
+            if (SaveLoadData.instance.playerData.mediumGameLeft > 0)
+            {
+                SaveLoadData.instance.playerData.mediumGameLeft--;
+                SaveLoadData.instance.playerData.mediumGamePlayed++;
+                SaveLoadData.instance.playerData.mediumWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+
+            }
+            gameRemaining = SaveLoadData.instance.playerData.mediumGameLeft;
+
+        }
+        else if (difficulty == "Hard")
+        {
+            if (SaveLoadData.instance.playerData.hardGameLeft > 0)
+            {
+                SaveLoadData.instance.playerData.hardGameLeft--;
+                SaveLoadData.instance.playerData.hardGamePlayed++;
+                SaveLoadData.instance.playerData.hardWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+
+            }
+            gameRemaining = SaveLoadData.instance.playerData.hardGameLeft;
+
+        }
+        else if (difficulty == "Expert")
+        {
+            if (SaveLoadData.instance.playerData.expertGameLeft > 0)
+            {
+                SaveLoadData.instance.playerData.expertGameLeft--;
+                SaveLoadData.instance.playerData.expertGamePlayed++;
+                SaveLoadData.instance.playerData.expertWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+
+            }
+            gameRemaining = SaveLoadData.instance.playerData.expertGameLeft;
+
+        }
+        else if (difficulty == "Giant")
+        {
+            if(SaveLoadData.instance.playerData.giantGameLeft > 0)
+            {
+                SaveLoadData.instance.playerData.giantGameLeft--;
+                SaveLoadData.instance.playerData.giantGamePlayed++;
+                SaveLoadData.instance.playerData.giantWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+
+            }
+            gameRemaining = SaveLoadData.instance.playerData.giantGameLeft;
+            
+        }
+        
+        levelDisplay.text = "Level " + difficulty + " you have " + gameRemaining + " for today.";
+        SaveLoadData.instance.SavingData();
+        SaveLoadData.instance.OpenData();
     }
 
 

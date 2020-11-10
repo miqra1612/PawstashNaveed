@@ -18,9 +18,15 @@ public class GamesManager : MonoBehaviour
     public Text timeDisplay;
     public Text turnDisplay;
     public bool isPlaying = false;
+    public bool exploder = false;
+    public Text exploderValue;
+    public bool infiniteTurn = false;
+    public Text infiniteTurnValue;
+    public bool infiniteTimer = false;
+    public Text infiniteTimeValue;
 
     public GameObject[] UIpanels;
-
+    
     public static GamesManager instance;
 
     private void Awake()
@@ -34,6 +40,11 @@ public class GamesManager : MonoBehaviour
         puzzle = GameObject.FindGameObjectWithTag("manager").GetComponent<PuzzleGenerator>();
         gameUIcontroler = GameObject.FindGameObjectWithTag("manager").GetComponent<GameUIController>();
         scoreDisplay.text = "0";
+
+        exploderValue.text = SaveLoadData.instance.playerData.exploder.ToString();
+        infiniteTimeValue.text = SaveLoadData.instance.playerData.infinityTimer.ToString();
+        infiniteTurnValue.text = SaveLoadData.instance.playerData.infinityTurn.ToString();
+
         checkDifficulty();
         
     }
@@ -52,7 +63,7 @@ public class GamesManager : MonoBehaviour
         {
             time = 60;
             turn = 100;
-            difficulty.text = "Eassy";
+            difficulty.text = "Easy";
             timeDisplay.text = time.ToString("00:00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
         }
@@ -89,6 +100,8 @@ public class GamesManager : MonoBehaviour
             turnDisplay.text = "Turn: " + turn.ToString("0");
         }
         beginTime = time;
+
+
     }
 
     IEnumerator runTimer()
@@ -97,8 +110,17 @@ public class GamesManager : MonoBehaviour
 
         for(int i = 0; i < a; i++)
         {
-            time--;
-            timeDisplay.text = time.ToString("00:00");
+            if(infiniteTimer == true)
+            {
+                time = 9999;
+                timeDisplay.text = time.ToString("99:99");
+            }
+            else
+            {
+                time--;
+                timeDisplay.text = time.ToString("00:00");
+            }
+           
             yield return new WaitForSeconds(1);
         }
 
@@ -114,6 +136,7 @@ public class GamesManager : MonoBehaviour
     public void StartGame()
     {
         puzzle.StartChangeColor();
+        AdsManager.instance.ShowBannerAgain();
     }
 
     public void StartTimer()
@@ -123,9 +146,29 @@ public class GamesManager : MonoBehaviour
 
     public void TakeOutTurn(int t)
     {
-        turn -= t;
+        if(infiniteTurn == true)
+        {
+            turn = 999;
+        }
+        else
+        {
+            turn -= t;
+        }
+       
         turnDisplay.text = "Turn: " + turn.ToString("0");
-        puzzle.CheckingColor();
+       
+
+        if (turn < 1)
+        {
+            isPlaying = false;
+            gameUIcontroler.GameOverInfo();
+            CloseAllPanel();
+            OpenPanel(0);
+        }
+        else
+        {
+            puzzle.CheckingColor();
+        }
     }
 
     public void OpenPanel(int panelElement)
@@ -150,5 +193,45 @@ public class GamesManager : MonoBehaviour
         finnishTime = beginTime - time;
     }
 
-    
+    public void Solution()
+    {
+        AdsManager.instance.UserChoseToWatchAd();
+    }
+
+    public void UseExploder(Text value)
+    {
+        int a = SaveLoadData.instance.playerData.exploder;
+
+        if(a > 0)
+        {
+            exploder = true;
+            SaveLoadData.instance.playerData.exploder--;
+            value.text = SaveLoadData.instance.playerData.exploder.ToString();
+        }
+    }
+
+    public void UseInfiniteTimer(Text value)
+    {
+        int a = SaveLoadData.instance.playerData.infinityTimer;
+
+        if (a > 0)
+        {
+            infiniteTimer = true;
+            SaveLoadData.instance.playerData.infinityTimer--;
+            value.text = SaveLoadData.instance.playerData.infinityTimer.ToString();
+        }
+    }
+
+    public void UseInfiniteTurn(Text value)
+    {
+        int a = SaveLoadData.instance.playerData.infinityTurn;
+
+        if (a > 0)
+        {
+            turnDisplay.text = "Turn: 999";
+            infiniteTurn = true;
+            SaveLoadData.instance.playerData.infinityTurn--;
+            value.text = SaveLoadData.instance.playerData.infinityTurn.ToString();
+        }
+    }
 }

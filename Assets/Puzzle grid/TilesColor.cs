@@ -20,8 +20,9 @@ public class TilesColor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        LoadSetting();
+        lightTileColor = PlayerPrefs.GetString("LightColor");
+        DarkTileColor = PlayerPrefs.GetString("DarkColor");
+        vibration = PlayerPrefs.GetString("vibrate");
 
         col = gameObject.GetComponent<CircleCollider2D>();
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -80,7 +81,7 @@ public class TilesColor : MonoBehaviour
         }
         else if (colorID == "redD")
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 
@@ -103,7 +104,11 @@ public class TilesColor : MonoBehaviour
         if (gameManager.isPlaying && gameManager.turn > 0)
         {
             nearbyTiles.Clear();
-            col.enabled = true;
+            if(gameManager.exploder == false)
+            {
+                col.enabled = true;
+            }
+           
 
             if (colorID == lightTileColor)
             {

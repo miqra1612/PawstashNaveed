@@ -6,6 +6,8 @@ using GoogleMobileAds.Api;
 
 public class SettingManager : MonoBehaviour
 {
+    public Text Debugtext;
+
     public Toggle[] shapes;
     public Toggle[] lightTiles;
     public Toggle[] darkTiles;
@@ -13,14 +15,23 @@ public class SettingManager : MonoBehaviour
     [Header("other setting here")]
     public Toggle vibration;
     public Toggle sound;
-   
+    private PuzzleGenerator pg;
 
     private string appID = "ca-app-pub-3850042963742973~2621600816";
+
+    public static SettingManager sg;
+
+    private void Awake()
+    {
+        sg = this;
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         MobileAds.Initialize(appID);
+
 
         int a = PlayerPrefs.GetInt("justInstal");
 
@@ -32,7 +43,12 @@ public class SettingManager : MonoBehaviour
             PlayerPrefs.SetString("vibrate", "true");
             PlayerPrefs.SetString("sound", "true");
             PlayerPrefs.SetString("shape", "rounded");
+            SaveLoadData.instance.playerData.exploder = 3;
+            SaveLoadData.instance.playerData.infinityTimer = 3;
+            SaveLoadData.instance.playerData.infinityTurn = 3;
+            SaveLoadData.instance.playerData.solutions = 3;
         }
+       
 
         AdjustSetting();
 
@@ -223,16 +239,23 @@ public class SettingManager : MonoBehaviour
 
     public void PauseWhenOpenSetting()
     {
+        pg = GameObject.FindGameObjectWithTag("manager").GetComponent<PuzzleGenerator>();
+
         GamesManager.instance.isPlaying = false;
         Time.timeScale = 0;
     }
 
     public void ContinueAndApplySettingWhenPlay()
     {
-        PuzzleGenerator pg = GameObject.FindGameObjectWithTag("manager").GetComponent<PuzzleGenerator>();
+       
         pg.ApplyNewSettings();
         GamesManager.instance.isPlaying = true;
         Time.timeScale = 1;
 
+    }
+
+    public void DebugText(string textTes)
+    {
+        Debugtext.text = textTes;
     }
 }

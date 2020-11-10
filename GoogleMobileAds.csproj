@@ -332,20 +332,20 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.156">
+      <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.156.dll</HintPath>
+    </Reference>
     <Reference Include="Google.JarResolver_v1.2.156">
       <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.156.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.PackageManagerResolver_v1.2.156">
+      <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.156.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandler">
       <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandlerImpl_v1.2.156">
       <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.156.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.156">
-      <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.156.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.PackageManagerResolver_v1.2.156">
-      <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.156.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:/Program Files/unity 2019.4.1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
