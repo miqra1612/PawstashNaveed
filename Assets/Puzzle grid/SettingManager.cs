@@ -32,9 +32,9 @@ public class SettingManager : MonoBehaviour
     {
         MobileAds.Initialize(appID);
 
-
+        SaveLoadData.instance.OpenData();
         int a = PlayerPrefs.GetInt("justInstal");
-
+        Debug.Log("nilai a: " + a);
         if(a < 1)
         {
             PlayerPrefs.SetInt("justInstal",1);
@@ -47,6 +47,7 @@ public class SettingManager : MonoBehaviour
             SaveLoadData.instance.playerData.infinityTimer = 3;
             SaveLoadData.instance.playerData.infinityTurn = 3;
             SaveLoadData.instance.playerData.solutions = 3;
+            SaveLoadData.instance.playerData.challengeID = 1;
         }
        
 

@@ -63,13 +63,9 @@ public class GameUIController : MonoBehaviour
         Level.text = gameManager.difficulty.text;
         Result.text = winningToday.ToString() + " wins today! it's " + winningToday.ToString() + " more than yesterday!";
 
-        adsView = GameObject.FindGameObjectWithTag("addManager").GetComponent<AdsManager>();
-
-        if (adsView != null)
-        {
-            adsView.HideBanner();
-            Debug.Log("hiding banner");
-        }
+        
+        AdsManager.instance.HideBanner();
+        
 
         if(Level.text == "Easy")
         {
@@ -124,6 +120,9 @@ public class GameUIController : MonoBehaviour
 
         SaveLoadData.instance.playerData.continueGame = "false";
 
+        //SaveLoadData.instance.SavingData();
+
+        ChallengeManager.instance.CheckChallange();
         SaveLoadData.instance.SavingData();
     }
 
@@ -251,7 +250,8 @@ public class GameUIController : MonoBehaviour
         levelDisplay.text = "Level " + difficulty + " you have " + gameRemaining + " for today.";
         SaveLoadData.instance.SavingData();
         SaveLoadData.instance.OpenData();
+        AdsManager.instance.HideBanner();
     }
 
-
+    
 }

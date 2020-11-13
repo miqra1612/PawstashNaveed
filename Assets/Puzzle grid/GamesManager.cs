@@ -10,6 +10,7 @@ public class GamesManager : MonoBehaviour
     public int score = 0;
     private float beginTime;
     public float finnishTime;
+    public int undoAmount;
 
     private PuzzleGenerator puzzle;
     private GameUIController gameUIcontroler;
@@ -191,6 +192,7 @@ public class GamesManager : MonoBehaviour
         StopAllCoroutines();
 
         finnishTime = beginTime - time;
+        SaveLoadData.instance.SavingData();
     }
 
     public void Solution()

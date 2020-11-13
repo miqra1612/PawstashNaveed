@@ -14,16 +14,16 @@ public class SaveLoadData : MonoBehaviour
     {
         instance = this;
 
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("playerData");
+        /*GameObject[] objs = GameObject.FindGameObjectsWithTag("playerData");
 
         if (objs.Length > 1)
         {
             Destroy(this.gameObject);
         }
 
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);*/
 
-        if(Application.platform == RuntimePlatform.Android)
+        if (Application.platform == RuntimePlatform.Android)
         {
             datapath = "\\playerData.json";
         }

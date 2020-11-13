@@ -21,23 +21,31 @@ public class SceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            PlayerPrefs.DeleteAll();
+        }
     }
 
     public void ChangeScene(string sceneName)
     {
-        
-        SceneManager.LoadScene(sceneName);
+        AdsManager.instance.HideBanner();
         SaveLoadData.instance.playerData.patternID = 0;
+        SaveLoadData.instance.SavingData();
+        SceneManager.LoadScene(sceneName);
+        
     }
 
     public void ReloadLevel()
     {
+        AdsManager.instance.HideBanner();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OpenAddsBeforePlayGameAgain()
     {
+        SaveLoadData.instance.SavingData();
+        AdsManager.instance.HideBanner();
         AdsManager.instance.ShowInterstitialAds();
     }
 }

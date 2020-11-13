@@ -62,8 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ChallengeEffect.cs" />
+    <Compile Include="Assets\ChallengeManager.cs" />
     <Compile Include="Assets\Puzzle grid\AdsManager.cs" />
     <Compile Include="Assets\Puzzle grid\CameraViews.cs" />
+    <Compile Include="Assets\Puzzle grid\ChallengeData.cs" />
     <Compile Include="Assets\Puzzle grid\GameUIController.cs" />
     <Compile Include="Assets\Puzzle grid\GamesManager.cs" />
     <Compile Include="Assets\Puzzle grid\MenuUIController.cs" />
@@ -75,6 +78,8 @@
     <Compile Include="Assets\Puzzle grid\SettingManager.cs" />
     <Compile Include="Assets\Puzzle grid\StatisticData.cs" />
     <Compile Include="Assets\Puzzle grid\TilesColor.cs" />
+    <Compile Include="Assets\effect.cs" />
+    <Compile Include="Assets\testmanager.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/unity 2019.4.1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

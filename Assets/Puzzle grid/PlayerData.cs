@@ -73,6 +73,7 @@ public class PlayerData
     // this part for next puzzle
     [Header("This part for next puzzle")]
     public int patternID;
+    public int challengeID;
 
     //this part for item
     [Header("This part for game item")]
@@ -83,6 +84,15 @@ public class PlayerData
     public int infinitePuzzle;
     public int solutions;
 
+    [Header("This part for game item")]
+    public int flipColor;
+    public int flipVertical;
+    public int flipHorizontal;
+    public int exploderUsed;
+    public int infiniteTimerUsed;
+    public int infiniteTurnUsed;
+    
+
     //this part for continue game
     [Header("This part for Continue Game")]
     public float timeLeft;
@@ -91,6 +101,6 @@ public class PlayerData
     public string continueGame;
     public string date;
     public List<string> tilesColor;
-
+    
 
 }

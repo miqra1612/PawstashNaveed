@@ -774,9 +774,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -820,7 +820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6792453, g: 0.6728373, b: 0.6728373, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3425,12 +3425,19 @@ MonoBehaviour:
     giantBestWinStreak: 0
     giantGameLeft: 0
     patternID: 0
+    challengeID: 0
     exploder: 0
     infinityTimer: 0
     infinityTurn: 0
     addFree: 
     infinitePuzzle: 0
     solutions: 0
+    flipColor: 0
+    flipVertical: 0
+    flipHorizontal: 0
+    exploderUsed: 0
+    infiniteTimerUsed: 0
+    infiniteTurnUsed: 0
     timeLeft: 0
     turnLeft: 0
     puzzleSize: 0
@@ -5230,6 +5237,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 368094868}
   m_CullTransparentMesh: 0
+--- !u!1 &371791255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 371791256}
+  - component: {fileID: 371791258}
+  - component: {fileID: 371791257}
+  m_Layer: 5
+  m_Name: Text Status
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &371791256
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371791255}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1125972442}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -364.2}
+  m_SizeDelta: {x: 1280, y: 180}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &371791257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371791255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.37647063, b: 0.9607844, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 80
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 7
+    m_MaxSize: 80
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: nonoono
+--- !u!222 &371791258
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371791255}
+  m_CullTransparentMesh: 0
 --- !u!1 &379908405
 GameObject:
   m_ObjectHideFlags: 0
@@ -6311,9 +6396,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6357,7 +6442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6792453, g: 0.6728373, b: 0.6728373, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -6645,8 +6730,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 0, y: -800}
+  m_AnchoredPosition: {x: 0, y: 414.8}
+  m_SizeDelta: {x: 0, y: -1759.4028}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &469692464
 MonoBehaviour:
@@ -6680,13 +6765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Solve 3 Easy puzzles
-
-
-    Reward
-
-
-    1 Infinity timer'
+  m_Text: Sol sol sol sol
 --- !u!222 &469692465
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8277,6 +8356,84 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601760738}
+  m_CullTransparentMesh: 0
+--- !u!1 &605766198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605766199}
+  - component: {fileID: 605766201}
+  - component: {fileID: 605766200}
+  m_Layer: 5
+  m_Name: Text Header reward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &605766199
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605766198}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1125972442}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 213}
+  m_SizeDelta: {x: 1280, y: 110}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &605766200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605766198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.37647063, b: 0.9607844, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 80
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 7
+    m_MaxSize: 80
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Reward
+--- !u!222 &605766201
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605766198}
   m_CullTransparentMesh: 0
 --- !u!1 &608955851
 GameObject:
@@ -12048,9 +12205,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -12094,7 +12251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6792453, g: 0.6728373, b: 0.6728373, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -14620,6 +14777,10 @@ RectTransform:
   m_Children:
   - {fileID: 1210015769}
   - {fileID: 469692463}
+  - {fileID: 605766199}
+  - {fileID: 1494153180}
+  - {fileID: 1821921477}
+  - {fileID: 371791256}
   m_Father: {fileID: 1112169985}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20028,6 +20189,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494094250}
   m_CullTransparentMesh: 0
+--- !u!1 &1494153179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1494153180}
+  - component: {fileID: 1494153182}
+  - component: {fileID: 1494153181}
+  m_Layer: 5
+  m_Name: Text reward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1494153180
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494153179}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1125972442}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 16.700012}
+  m_SizeDelta: {x: 1280, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1494153181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494153179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.37647063, b: 0.9607844, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 80
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 7
+    m_MaxSize: 80
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 1 Infinity timer
+--- !u!222 &1494153182
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494153179}
+  m_CullTransparentMesh: 0
 --- !u!1 &1501346522
 GameObject:
   m_ObjectHideFlags: 0
@@ -20166,9 +20405,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -20212,7 +20451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6792453, g: 0.6728373, b: 0.6728373, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -20834,6 +21073,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1718360713}
+        m_MethodName: ShowChallenge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -22866,6 +23116,7 @@ GameObject:
   - component: {fileID: 1718360710}
   - component: {fileID: 1718360711}
   - component: {fileID: 1718360712}
+  - component: {fileID: 1718360713}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -23015,6 +23266,191 @@ MonoBehaviour:
   giantAverageTimeValue: {fileID: 1763508615}
   giantCurrentStreakValue: {fileID: 456343444}
   giantBestWinStreakValue: {fileID: 480247249}
+--- !u!114 &1718360713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718360706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be90680a60bf6844b46d54b7a2b287c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  challengeDisplay: {fileID: 469692464}
+  rewardDisplay: {fileID: 1494153181}
+  statusDisplay: {fileID: 371791257}
+  challengeComplete: {fileID: 0}
+  gameChallenge:
+  - challenge: Solve 3 Easy puzzles
+    reward: 1 Infinity timer
+    challengeID: 1
+    itemRewardedAmount: 1
+  - challenge: Solve 3 Medium puzzles
+    reward: 1 Infinity turn
+    challengeID: 2
+    itemRewardedAmount: 1
+  - challenge: Use Flip horizontal
+    reward: 1 Exploder
+    challengeID: 3
+    itemRewardedAmount: 1
+  - challenge: Use Flip vertical
+    reward: 1 Infinity timer
+    challengeID: 4
+    itemRewardedAmount: 1
+  - challenge: Use Flip colors
+    reward: 1 Infinity move
+    challengeID: 5
+    itemRewardedAmount: 1
+  - challenge: Use Infinity timer
+    reward: 1 Infinity timer
+    challengeID: 6
+    itemRewardedAmount: 1
+  - challenge: Use Infinity moves
+    reward: 1 Infinity move
+    challengeID: 7
+    itemRewardedAmount: 1
+  - challenge: Use Exploder
+    reward: 1 Exploder
+    challengeID: 8
+    itemRewardedAmount: 1
+  - challenge: Make a streak of solving 5 Hard puzzles
+    reward: 1 Infinity timer
+    challengeID: 9
+    itemRewardedAmount: 1
+  - challenge: Make a streak of solving 3 Expert puzzles
+    reward: 1 Infinity move
+    challengeID: 10
+    itemRewardedAmount: 1
+  - challenge: Play a game with Circle tiles
+    reward: 1 Exploder
+    challengeID: 11
+    itemRewardedAmount: 1
+  - challenge: Play a game with sharp corner square tiles
+    reward: 1 Infinity timer
+    challengeID: 12
+    itemRewardedAmount: 1
+  - challenge: Play a game with Red-white theme
+    reward: 1 Infinity move
+    challengeID: 13
+    itemRewardedAmount: 1
+  - challenge: Play a game with Black-Red theme
+    reward: 1 Infinity timer
+    challengeID: 14
+    itemRewardedAmount: 1
+  - challenge: Solve Easy puzzle in less than 30 s
+    reward: 1 Infinity move
+    challengeID: 15
+    itemRewardedAmount: 1
+  - challenge: Solve Medium puzzle in less than 30 s
+    reward: 1 Exploder
+    challengeID: 16
+    itemRewardedAmount: 1
+  - challenge: Solve 1 Hard puzzle
+    reward: 1 Infinity timer
+    challengeID: 17
+    itemRewardedAmount: 1
+  - challenge: Solve 1 Expert puzzle
+    reward: 1 Infinity move
+    challengeID: 18
+    itemRewardedAmount: 1
+  - challenge: Solve 1 Giant puzzle
+    reward: 1 Exploder
+    challengeID: 19
+    itemRewardedAmount: 1
+  - challenge: Solve a Hard puzzle without any undo
+    reward: 1 Infinity timer
+    challengeID: 20
+    itemRewardedAmount: 1
+  - challenge: Solve an Expert puzzle without any undo
+    reward: 1 Infinity move
+    challengeID: 21
+    itemRewardedAmount: 1
+  - challenge: Solve 10 Hard puzzles
+    reward: 1 Infinity timer
+    challengeID: 22
+    itemRewardedAmount: 1
+  - challenge: Solve 10 Expert puzzles
+    reward: 1 Infinity move
+    challengeID: 23
+    itemRewardedAmount: 1
+  - challenge: Solve 5 Giant puzzles
+    reward: 1 Exploder
+    challengeID: 24
+    itemRewardedAmount: 1
+  - challenge: Make a streak of solving 5 Hard puzzles
+    reward: 1 Infinity timer
+    challengeID: 25
+    itemRewardedAmount: 1
+  - challenge: Make a streak of solving 5 Expert puzzles
+    reward: 1 Infinity move
+    challengeID: 26
+    itemRewardedAmount: 1
+  - challenge: Make a streak of solving 5 Giant puzzles
+    reward: 1 Exploder
+    challengeID: 27
+    itemRewardedAmount: 1
+  - challenge: Solve 30 Easy puzzles
+    reward: 1 Infinity timer
+    challengeID: 28
+    itemRewardedAmount: 1
+  - challenge: Solve 30 Medium puzzles
+    reward: 1 Infinity move
+    challengeID: 29
+    itemRewardedAmount: 1
+  - challenge: Solve 30 Hard puzzles
+    reward: 1 Infinity timer
+    challengeID: 30
+    itemRewardedAmount: 1
+  - challenge: Solve 30 Expert puzzles
+    reward: 1 Infinity move
+    challengeID: 31
+    itemRewardedAmount: 1
+  - challenge: Solve 30 Giant puzzles
+    reward: 1 Exploder
+    challengeID: 32
+    itemRewardedAmount: 1
+  - challenge: Make a streak of solving 10 Hard puzzles
+    reward: 1 Infinity timer
+    challengeID: 33
+    itemRewardedAmount: 1
+  - challenge: Make a streak of solving 10 Expert puzzles
+    reward: 1 Infinity move
+    challengeID: 34
+    itemRewardedAmount: 1
+  - challenge: Make a streak of solving 10 Giant puzzles
+    reward: 1 Exploder
+    challengeID: 35
+    itemRewardedAmount: 1
+  - challenge: Solve a Hard Puzzle in less than 3 minutes
+    reward: 1 Infinity timer
+    challengeID: 36
+    itemRewardedAmount: 1
+  - challenge: Solve an Expert Puzzle in less than 3 minutes
+    reward: 1 Infinity move
+    challengeID: 37
+    itemRewardedAmount: 1
+  - challenge: Solve the Giant Puzzle in less than 3 minutes
+    reward: 1 Infinity timer
+    challengeID: 38
+    itemRewardedAmount: 1
+  - challenge: Solve a Hard Puzzle in less than 1 minute
+    reward: 1 Infinity move
+    challengeID: 39
+    itemRewardedAmount: 1
+  - challenge: Solve an Expert Puzzle in less than 1 minute
+    reward: 1 Exploder
+    challengeID: 40
+    itemRewardedAmount: 1
+  - challenge: Solve the Giant Puzzle in less than 1 minute
+    reward: 1 Infinity timer
+    challengeID: 41
+    itemRewardedAmount: 1
+  - challenge: You already complete all challenge
+    reward: Congratulation
+    challengeID: 42
+    itemRewardedAmount: 0
 --- !u!1 &1719784827
 GameObject:
   m_ObjectHideFlags: 0
@@ -24061,6 +24497,84 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815233503}
+  m_CullTransparentMesh: 0
+--- !u!1 &1821921476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1821921477}
+  - component: {fileID: 1821921479}
+  - component: {fileID: 1821921478}
+  m_Layer: 5
+  m_Name: Text Header Status
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1821921477
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821921476}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1125972442}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -183}
+  m_SizeDelta: {x: 1280, y: 140}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1821921478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821921476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0.37647063, b: 0.9607844, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 80
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 7
+    m_MaxSize: 80
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Status
+--- !u!222 &1821921479
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821921476}
   m_CullTransparentMesh: 0
 --- !u!1 &1833246607
 GameObject:
@@ -25419,7 +25933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.4}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -26566,6 +27080,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002674563}
   m_CullTransparentMesh: 0
+--- !u!1 &2014345356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014345358}
+  - component: {fileID: 2014345357}
+  m_Layer: 0
+  m_Name: AdsController
+  m_TagString: addManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2014345357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014345356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bc76085706a9144908ae875bfdee86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2014345358
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014345356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2020356068
 GameObject:
   m_ObjectHideFlags: 0
@@ -27122,9 +27679,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.60784316, g: 0.59607846, b: 0.59607846, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -27168,7 +27725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6792453, g: 0.6728373, b: 0.6728373, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

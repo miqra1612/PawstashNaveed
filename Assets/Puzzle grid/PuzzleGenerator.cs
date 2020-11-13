@@ -40,7 +40,8 @@ public class PuzzleGenerator : MonoBehaviour
         
         SetGridPosition();
 
-        SaveLoadData.instance.playerData.patternID++;
+       
+
         if (SaveLoadData.instance.playerData.patternID > 9)
         {
             SaveLoadData.instance.playerData.patternID = 0;
@@ -218,7 +219,8 @@ public class PuzzleGenerator : MonoBehaviour
 
             gc.ShowWinningResult(gameScore, 1);
             gameManager.OpenPanel(1);
-
+            SaveLoadData.instance.playerData.patternID++;
+            Debug.Log("nilai patternID: " + SaveLoadData.instance.playerData.patternID);
         }
     }
 
@@ -228,6 +230,7 @@ public class PuzzleGenerator : MonoBehaviour
         {
             stepDone[stepDone.Count - 1].UndoStep();
             stepDone.Remove(stepDone[stepDone.Count - 1]);
+            gameManager.undoAmount++;
         }
     }
 

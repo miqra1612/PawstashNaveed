@@ -34,6 +34,7 @@ public class MenuUIController : MonoBehaviour
         {
             ShowContinueButton();
         }
+        AdsManager.instance.HideBanner();
     }
 
     // Update is called once per frame
