@@ -14,7 +14,7 @@ public class TilesColor : MonoBehaviour
 
     private string lightTileColor;
     private string DarkTileColor;
-    private string vibration;
+    
     private TilesColor tc;
 
     // Start is called before the first frame update
@@ -22,7 +22,7 @@ public class TilesColor : MonoBehaviour
     {
         lightTileColor = PlayerPrefs.GetString("LightColor");
         DarkTileColor = PlayerPrefs.GetString("DarkColor");
-        vibration = PlayerPrefs.GetString("vibrate");
+        
 
         col = gameObject.GetComponent<CircleCollider2D>();
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -43,7 +43,7 @@ public class TilesColor : MonoBehaviour
     {
         lightTileColor = PlayerPrefs.GetString("LightColor");
         DarkTileColor = PlayerPrefs.GetString("DarkColor");
-        vibration = PlayerPrefs.GetString("vibrate");
+        
 
         if (colorID == "white")
         {
@@ -108,6 +108,10 @@ public class TilesColor : MonoBehaviour
             {
                 col.enabled = true;
             }
+            else
+            {
+                gameManager.exploder = false;
+            }
            
 
             if (colorID == lightTileColor)
@@ -121,10 +125,7 @@ public class TilesColor : MonoBehaviour
                 colorID = lightTileColor;
             }
 
-            if(vibration == "true")
-            {
-                Handheld.Vibrate();
-            }
+            
 
             ChangeColor();
             StartCoroutine(ChangingOtherColor());

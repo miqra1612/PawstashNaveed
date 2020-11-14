@@ -31,6 +31,7 @@ public class GameUIController : MonoBehaviour
     public Text levelDisplay;
     private int gameRemaining = 4;
 
+    private string vibration;
     private GamesManager gameManager;
     private AdsManager adsView;
     private PuzzleGenerator puzzleGenerator;
@@ -184,6 +185,12 @@ public class GameUIController : MonoBehaviour
     public void GameOverInfo()
     {
         string difficulty = gameManager.difficulty.text;
+        vibration = PlayerPrefs.GetString("vibrate");
+
+        if (vibration == "true")
+        {
+            Handheld.Vibrate();
+        }
 
         if (difficulty == "Easy")
         {

@@ -17,6 +17,7 @@ public class PuzzleGenerator : MonoBehaviour
     private string DarkTileColor;
     int a;
     int b;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -180,12 +181,12 @@ public class PuzzleGenerator : MonoBehaviour
 
     IEnumerator ChangeColor()
     {
-        
+        yield return null;
+
         for (int i = 0; i < generatedPuzzle.Count; i++)
         {
            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
-           yield return new WaitForSeconds(0.1f);
-            
+          
         }
 
         gameManager.isPlaying = true;
@@ -241,8 +242,186 @@ public class PuzzleGenerator : MonoBehaviour
             generatedPuzzle[i].GetComponent<TilesColor>().reverseColor();
             
         }
+
+        gameManager.turn--;
     }
 
+    public void FlipVertical()
+    {
+        bool grid1 = false;
+        bool grid2 = false;
+        bool grid3 = false;
+        bool grid4 = false;
+
+        if(puzzleSize == 4 || puzzleSize == 5)
+        {
+            grid1 = true;
+            grid2 = true;
+        }
+        else if (puzzleSize == 6 || puzzleSize == 7)
+        {
+            grid1 = true;
+            grid2 = true;
+            grid3 = true;
+        }
+        else
+        {
+            grid1 = true;
+            grid2 = true;
+            grid3 = true;
+            grid4 = true;
+        }
+
+
+        if(grid1 == true)
+        {
+            //first grid
+            VerticalGridFlip(0, 1);
+        }
+        
+        if(grid2 == true)
+        {
+            //second grid
+            VerticalGridFlip(1, 2);
+        }
+        
+        if(grid3 == true)
+        {
+            //third grid
+            VerticalGridFlip(2, 3);
+        }
+        
+        if(grid4 == true)
+        {
+            //fourth grid
+            VerticalGridFlip(3, 4);
+        }
+
+        gameManager.turn--;
+    }
+
+    void VerticalGridFlip(int beginMultiplier, int endMultiplier)
+    {
+        for (int i = puzzleSize * beginMultiplier; i < puzzleSize * endMultiplier; i++)
+        {
+            string temp = generatedPuzzle[i].GetComponent<TilesColor>().colorID;
+            //Debug.Log("Warna awal grid 1 tile: " + i + " " + temp);
+            //first row
+            generatedPuzzle[i].GetComponent<TilesColor>().colorID = generatedPuzzle[generatedPuzzle.Count - (i + 1)].GetComponent<TilesColor>().colorID;
+            //second row
+            generatedPuzzle[generatedPuzzle.Count - (i + 1)].GetComponent<TilesColor>().colorID = temp;
+            //change first row
+            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
+            //change second row
+            generatedPuzzle[generatedPuzzle.Count - (i + 1)].GetComponent<TilesColor>().ChangeColor();
+        }
+    }
+
+    public void FlipHorizontal()
+    {
+
+        HorizontalGridFlip();
+        gameManager.turn--;
+
+        //first grid
+        /*for (int i = 0; i < 2; i++)
+        {
+            string temp = generatedPuzzle[i].GetComponent<TilesColor>().colorID;
+            Debug.Log("Warna awal grid 1 tile: " + i + " " + temp);
+            //first row
+            generatedPuzzle[i].GetComponent<TilesColor>().colorID = generatedPuzzle[5 - (i + 1)].GetComponent<TilesColor>().colorID;
+            //second row
+            generatedPuzzle[5 - (i + 1)].GetComponent<TilesColor>().colorID = temp;
+            //change first row
+            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
+            //change second row
+            generatedPuzzle[5 - (i + 1)].GetComponent<TilesColor>().ChangeColor();
+        }
+
+        //second grid
+        for (int i = 0; i < 2; i++)
+        {
+            string temp = generatedPuzzle[i + 5].GetComponent<TilesColor>().colorID;
+            Debug.Log("Warna awal grid 2 tile: " + i + " " + temp);
+            //first row
+            generatedPuzzle[i+5].GetComponent<TilesColor>().colorID = generatedPuzzle[5*2 - (i + 1)].GetComponent<TilesColor>().colorID;
+            //second row
+            generatedPuzzle[5 * 2 - (i + 1)].GetComponent<TilesColor>().colorID = temp;
+            //change first row
+            generatedPuzzle[i + 5].GetComponent<TilesColor>().ChangeColor();
+            //change second row
+            generatedPuzzle[5 * 2 - (i + 1)].GetComponent<TilesColor>().ChangeColor();
+        }
+
+        //second grid
+        for (int i = 0; i < 2; i++)
+        {
+            string temp = generatedPuzzle[i + (5*2)].GetComponent<TilesColor>().colorID;
+            Debug.Log("Warna awal grid 3 tile: " + i + " " + temp);
+            //first row
+            generatedPuzzle[i + (5 * 2)].GetComponent<TilesColor>().colorID = generatedPuzzle[5 * 3 - (i + 1)].GetComponent<TilesColor>().colorID;
+            //second row
+            generatedPuzzle[5 * 3 - (i + 1)].GetComponent<TilesColor>().colorID = temp;
+            //change first row
+            generatedPuzzle[i + (5 * 2)].GetComponent<TilesColor>().ChangeColor();
+            //change second row
+            generatedPuzzle[5 * 3 - (i + 1)].GetComponent<TilesColor>().ChangeColor();
+        }*/
+    }
+
+    void HorizontalGridFlip()
+    {
+        int horizontalTiles = 0;
+        int tilesMultiPlierBegin = 0;
+        int tilesMultiplierEnd = 0;
+
+        if (puzzleSize == 4 || puzzleSize == 5)
+        {
+            horizontalTiles = 2;
+        }
+        else if (puzzleSize == 6 || puzzleSize == 7)
+        {
+            horizontalTiles = 3;
+        }
+        else if (puzzleSize == 8)
+        {
+            horizontalTiles = 4;
+        }
+
+        int nilaiTileAwal = 0;
+        int nilaiTileAkhir = 0;
+
+        for (int i = 0; i < puzzleSize; i++)
+        {
+            tilesMultiPlierBegin = i;
+            //Debug.Log("nilai tile multi begin: " + tilesMultiPlierBegin);
+            tilesMultiplierEnd = i + 1;
+            for(int j = 0; j < horizontalTiles; j++)
+            {
+                string temp = generatedPuzzle[j + (puzzleSize * tilesMultiPlierBegin)].GetComponent<TilesColor>().colorID;
+                //Debug.Log("Warna awal grid horizontal tile: " + j + " " + temp);
+                //first row
+                generatedPuzzle[j + (puzzleSize * tilesMultiPlierBegin)].GetComponent<TilesColor>().colorID = generatedPuzzle[(puzzleSize * tilesMultiplierEnd) - (j + 1)].GetComponent<TilesColor>().colorID;
+                //second row
+                generatedPuzzle[(puzzleSize * tilesMultiplierEnd) - (j + 1)].GetComponent<TilesColor>().colorID = temp;
+                //change first row
+                generatedPuzzle[j + (puzzleSize * tilesMultiPlierBegin)].GetComponent<TilesColor>().ChangeColor();
+                //change second row
+                generatedPuzzle[(puzzleSize * tilesMultiplierEnd) - (j + 1)].GetComponent<TilesColor>().ChangeColor();
+                
+                /*
+                 nilaiTileAwal = j + (puzzleSize * tilesMultiPlierBegin);
+                nilaiTileAkhir = (puzzleSize * tilesMultiplierEnd) - (j + 1);
+
+                Debug.Log("nilai tile awal: " + nilaiTileAwal);
+                Debug.Log("nilai tile akhir: " + nilaiTileAkhir);
+                
+                */
+                
+            }
+            
+        }
+    }
 
     //this part for randomize pattern
 

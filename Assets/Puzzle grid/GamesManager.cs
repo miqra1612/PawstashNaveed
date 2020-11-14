@@ -23,8 +23,11 @@ public class GamesManager : MonoBehaviour
     public Text exploderValue;
     public bool infiniteTurn = false;
     public Text infiniteTurnValue;
+    public GameObject infiniteIconTurn;
     public bool infiniteTimer = false;
     public Text infiniteTimeValue;
+    public GameObject infiniteIconTimer;
+    private string vibration;
 
     public GameObject[] UIpanels;
     
@@ -114,7 +117,8 @@ public class GamesManager : MonoBehaviour
             if(infiniteTimer == true)
             {
                 time = 9999;
-                timeDisplay.text = time.ToString("99:99");
+                timeDisplay.text = " ";
+                infiniteIconTimer.SetActive(true);
             }
             else
             {
@@ -230,7 +234,8 @@ public class GamesManager : MonoBehaviour
 
         if (a > 0)
         {
-            turnDisplay.text = "Turn: 999";
+            turnDisplay.text = "Turn: ";
+            infiniteIconTurn.SetActive(true);
             infiniteTurn = true;
             SaveLoadData.instance.playerData.infinityTurn--;
             value.text = SaveLoadData.instance.playerData.infinityTurn.ToString();
