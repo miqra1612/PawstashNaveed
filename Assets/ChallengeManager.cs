@@ -9,6 +9,10 @@ public class ChallengeManager : MonoBehaviour
     public Text rewardDisplay;
     public Text statusDisplay;
     public GameObject challengeComplete;
+    public bool showChallengeDisplay = false;
+    public GameObject contentChallenge;
+    public GameObject challengeItem;
+
     private int challengeID;
     private int ChallengeElementArrayID;
     public ChallengeData[] gameChallenge;
@@ -26,6 +30,12 @@ public class ChallengeManager : MonoBehaviour
         challengeID = SaveLoadData.instance.playerData.challengeID;
         ChallengeElementArrayID = challengeID-1;
         Debug.Log("current challenge array: " + ChallengeElementArrayID);
+
+        if (showChallengeDisplay == true)
+        {
+            ShowAllChallenge();
+        }
+
     }
 
     // Update is called once per frame
@@ -57,6 +67,38 @@ public class ChallengeManager : MonoBehaviour
         }
 
     }
+
+
+    void ShowAllChallenge()
+    {
+        for(int i = 0; i < gameChallenge.Length; i++)
+        {
+            GameObject go = Instantiate(challengeItem, Vector3.one, Quaternion.identity);
+            go.transform.SetParent(contentChallenge.transform);
+            go.GetComponent<RectTransform>().localScale = Vector3.one;
+
+            ChallengeItem ci = go.GetComponent<ChallengeItem>();
+            ci.challenge = gameChallenge[i].challenge;
+            ci.rewards = gameChallenge[i].reward;
+            if (i < ChallengeElementArrayID)
+            {
+                ci.status = "Completed";
+            }
+            else
+            {
+                ci.status = "Not Complete";
+            }
+               
+            ci.ShowInfo();
+
+            if (i == ChallengeElementArrayID)
+            {
+                go.GetComponent<Image>().color = Color.yellow;
+            }
+        }
+    }
+
+
 
     public void CheckChallange()
     {
@@ -239,7 +281,7 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
-            
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQAQ");
         }
     }
 
@@ -253,7 +295,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
-
+            
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQKg");
         }
     }
 
@@ -268,6 +311,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQAw");
         }
     }
 
@@ -282,6 +326,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQBA");
         }
     }
 
@@ -296,6 +341,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQBQ");
         }
     }
 
@@ -311,6 +357,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQBg");
+
         }
     }
 
@@ -324,6 +372,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQBw");
 
         }
     }
@@ -339,6 +389,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQCA");
+
         }
     }
 
@@ -352,6 +404,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQCQ");
 
         }
     }
@@ -367,6 +421,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQCg");
+
         }
     }
 
@@ -381,6 +437,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQCw");
+
         }
     }
 
@@ -394,6 +452,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQDA");
 
         }
     }
@@ -410,6 +470,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQDQ");
+
         }
     }
 
@@ -424,6 +486,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQDg");
 
         }
     }
@@ -440,6 +504,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQDw");
+
         }
     }
 
@@ -454,6 +520,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQEA");
 
         }
     }
@@ -470,6 +538,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQEQ");
+
         }
     }
 
@@ -484,6 +554,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQEg");
+
         }
     }
 
@@ -497,6 +569,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQEw");
 
         }
     }
@@ -513,6 +587,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQFA");
+
         }
     }
 
@@ -527,6 +603,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQFQ");
 
         }
     }
@@ -543,6 +621,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQFg");
         }
     }
 
@@ -556,6 +635,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQFw");
 
         }
     }
@@ -571,6 +652,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQGA");
+
         }
     }
 
@@ -584,6 +667,8 @@ public class ChallengeManager : MonoBehaviour
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
+
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQGQ");
 
         }
     }
@@ -599,6 +684,8 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQGg");
+
         }
     }
 
@@ -613,6 +700,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQGw");
         }
     }
 
@@ -627,6 +715,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQHA");
         }
     }
 
@@ -641,6 +730,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQHQ");
         }
     }
 
@@ -655,6 +745,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQHg");
         }
     }
 
@@ -669,6 +760,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQHw");
         }
     }
 
@@ -683,6 +775,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQIA");
         }
     }
 
@@ -697,6 +790,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQIQ");
         }
     }
 
@@ -711,6 +805,7 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQIg");
         }
     }
 
@@ -725,96 +820,103 @@ public class ChallengeManager : MonoBehaviour
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQIw");
         }
     }
 
     void Challenge36()
     {
-        float a = GamesManager.instance.finnishTime;
+        float a = GamesManager.instance.finnishMinute;
         string difficulty = GamesManager.instance.difficulty.text;
 
-        if (a <= 30 && difficulty == "Hard")
+        if (a <= 3 && difficulty == "Hard")
         {
             challengeComplete.SetActive(true);
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQJA");
         }
     }
 
     void Challenge37()
     {
-        float a = GamesManager.instance.finnishTime;
+        float a = GamesManager.instance.finnishMinute;
         string difficulty = GamesManager.instance.difficulty.text;
 
-        if (a <= 30 && difficulty == "Expert")
+        if (a <= 3 && difficulty == "Expert")
         {
             challengeComplete.SetActive(true);
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQJQ");
         }
     }
 
     void Challenge38()
     {
-        float a = GamesManager.instance.finnishTime;
+        float a = GamesManager.instance.finnishMinute;
         string difficulty = GamesManager.instance.difficulty.text;
 
-        if (a <= 30 && difficulty == "Giant")
+        if (a <= 3 && difficulty == "Giant")
         {
             challengeComplete.SetActive(true);
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQJg");
         }
     }
 
     void Challenge39()
     {
-        float a = GamesManager.instance.finnishTime;
+        float a = GamesManager.instance.finnishMinute;
         string difficulty = GamesManager.instance.difficulty.text;
 
-        if (a <= 20 && difficulty == "Hard")
+        if (a <= 1 && difficulty == "Hard")
         {
             challengeComplete.SetActive(true);
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTurn++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQJw");
         }
     }
 
     void Challenge40()
     {
-        float a = GamesManager.instance.finnishTime;
+        float a = GamesManager.instance.finnishMinute;
         string difficulty = GamesManager.instance.difficulty.text;
 
-        if (a <= 20 && difficulty == "Expert")
+        if (a <= 1 && difficulty == "Expert")
         {
             challengeComplete.SetActive(true);
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.exploder++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQKA");
         }
     }
 
     void Challenge41()
     {
-        float a = GamesManager.instance.finnishTime;
+        float a = GamesManager.instance.finnishMinute;
         string difficulty = GamesManager.instance.difficulty.text;
 
-        if (a <= 20 && difficulty == "Giant")
+        if (a <= 1 && difficulty == "Giant")
         {
             challengeComplete.SetActive(true);
             challengeDisplay.text = gameChallenge[ChallengeElementArrayID].challenge;
             SaveLoadData.instance.playerData.challengeID++;
             SaveLoadData.instance.playerData.infinityTimer++;
 
+            LogInManager.instance.UnlockAchievement("CgkIldrbvbUdEAIQKQ");
         }
     }
 }
