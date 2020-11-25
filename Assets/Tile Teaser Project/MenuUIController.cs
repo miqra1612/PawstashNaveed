@@ -123,5 +123,7 @@ public class MenuUIController : MonoBehaviour
     public void BuyExploder()
     {
         Purchaser.instance.BuyExploder();
+        //SaveLoadData.instance.playerData.exploder += 10;
+        //SaveLoadData.instance.SavingData();
     }
 }

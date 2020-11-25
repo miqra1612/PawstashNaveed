@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
@@ -12,8 +13,8 @@ public class Purchaser : MonoBehaviour, IStoreListener
     public static Purchaser instance;
 
     // for product id put in in this region
-    private string infinitePuzzles = "infinite_puzzles";
-    private string goAdsFree = "go_ads_free";
+    private string infinitePuzzles = "buy_infinite_puzzle";
+    private string goAdsFree = "get_free_ads";
     private string getSolutions_10 = "10_solutions";
     private string getInfinityTime_10 = "10_infinity_timers";
     private string getInfinityTurn_10 = "10_infinity_moves";
@@ -29,7 +30,10 @@ public class Purchaser : MonoBehaviour, IStoreListener
 
     void Start()
     {
-        if (m_storeController == null) { InitializedPurchaseItem(); }
+        if (m_storeController == null)
+        {
+            InitializedPurchaseItem();
+        }
     }
 
     bool IsInitialize()
@@ -49,8 +53,8 @@ public class Purchaser : MonoBehaviour, IStoreListener
 
         //define consumable product or not
 
-        builder.AddProduct(goAdsFree, ProductType.NonConsumable);
-        builder.AddProduct(infinitePuzzles, ProductType.Consumable);
+        builder.AddProduct(goAdsFree, ProductType.Subscription);
+        builder.AddProduct(infinitePuzzles, ProductType.Subscription);
         builder.AddProduct(getExploders_10, ProductType.Consumable);
         builder.AddProduct(getInfinityTime_10, ProductType.Consumable);
         builder.AddProduct(getSolutions_10, ProductType.Consumable);
@@ -100,6 +104,9 @@ public class Purchaser : MonoBehaviour, IStoreListener
     public void OnInitializeFailed(InitializationFailureReason error)
     {
         Debug.Log("store init failed");
+        SettingManager.sg.DebugText("Fail to initialize IAP");
+        StartCoroutine(RetryInit());
+        
     }
 
     public void OnPurchaseFailed(Product i, PurchaseFailureReason p)
@@ -112,40 +119,44 @@ public class Purchaser : MonoBehaviour, IStoreListener
         if (String.Equals(args.purchasedProduct.definition.id, infinitePuzzles, StringComparison.Ordinal))
         {
             Debug.Log("get infinite Puzzle");
-            SaveLoadData.instance.playerData.eassyGameLeft = 9999;
-            SaveLoadData.instance.playerData.mediumGameLeft = 9999;
-            SaveLoadData.instance.playerData.hardGameLeft = 9999;
-            SaveLoadData.instance.playerData.expertGameLeft = 9999;
-            SaveLoadData.instance.playerData.giantGameLeft = 9999;
+            SettingManager.sg.DebugText("get 30 days infinite puzzle");
+            SaveLoadData.instance.playerData.infinitePuzzle = "true";
+            
         }
         else if (String.Equals(args.purchasedProduct.definition.id, goAdsFree, StringComparison.Ordinal))
         {
             Debug.Log("get ads free");
+            SettingManager.sg.DebugText("get 30 days ads free");
             SaveLoadData.instance.playerData.addFree = "true";
         }
         else if (String.Equals(args.purchasedProduct.definition.id, getSolutions_10, StringComparison.Ordinal))
         {
             Debug.Log("get 10 solutions");
+            SettingManager.sg.DebugText("get 10 solusion");
             SaveLoadData.instance.playerData.solutions += 10;
         }
         else if (String.Equals(args.purchasedProduct.definition.id, getInfinityTime_10, StringComparison.Ordinal))
         {
             Debug.Log("get 10 infinite time");
+            SettingManager.sg.DebugText("get 10 infinite time");
             SaveLoadData.instance.playerData.infinityTimer += 10;
         }
         else if (String.Equals(args.purchasedProduct.definition.id, getInfinityTurn_10, StringComparison.Ordinal))
         {
             Debug.Log("get 10 infinite turn");
+            SettingManager.sg.DebugText("get 10 infinite turn");
             SaveLoadData.instance.playerData.infinityTurn += 10;
         }
         else if (String.Equals(args.purchasedProduct.definition.id, getExploders_10, StringComparison.Ordinal))
         {
             Debug.Log("get 10 exploder");
+            SettingManager.sg.DebugText("get 10 exploder");
             SaveLoadData.instance.playerData.exploder += 10;
         }
         else
         {
             Debug.Log("Purchase Failed");
+            SettingManager.sg.DebugText("fail to purchase");
         }
 
         SaveLoadData.instance.SavingData();
@@ -153,7 +164,12 @@ public class Purchaser : MonoBehaviour, IStoreListener
         return PurchaseProcessingResult.Complete;
     }
 
-
+    IEnumerator RetryInit()
+    {
+        yield return new WaitForSeconds(1);
+        SettingManager.sg.DebugText("Retry initialize IAP");
+        InitializedPurchaseItem();
+    }
 
     void BuyProductID(string productID)
     {
@@ -164,17 +180,20 @@ public class Purchaser : MonoBehaviour, IStoreListener
             if(product != null && product.availableToPurchase)
             {
                 Debug.Log(string.Format("Purchasing product asychronously: '{0}'", product.definition.id));
+                SettingManager.sg.DebugText("purchase product: " + product.definition.id);
                 m_storeController.InitiatePurchase(product);
             }
             else
             {
                 Debug.Log("BuyProductID: FAIL. Not purchasing product, either is not found or is not available for purchase");
+                SettingManager.sg.DebugText("Fail purchase product: " + product.definition.id);
             }
 
         }
         else
         {
             Debug.Log("BuyProductID FAIL. Not initialized.");
+            SettingManager.sg.DebugText("fail to initialize");
         }
     }
 
@@ -183,6 +202,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
         if (!IsInitialize())
         {
             Debug.Log("RestorePurchases FAIL. Not initialized.");
+
             return;
         }
 

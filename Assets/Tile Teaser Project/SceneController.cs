@@ -82,7 +82,9 @@ public class SceneController : MonoBehaviour
             puzzle = SaveLoadData.instance.playerData.giantGameLeft;
         }
 
-        if(puzzle < 1)
+        string a = SaveLoadData.instance.playerData.infinitePuzzle;
+
+        if(puzzle < 1  && a == "false")
         {
             MenuUIController.instance.OpenPanel(7);
         }

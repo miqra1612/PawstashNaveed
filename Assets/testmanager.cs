@@ -11,8 +11,21 @@ public class testmanager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(CekTimer());
+        //StartCoroutine(CekTimer());
+        CekValue();
     }
+
+    void CekValue()
+    {
+        int end = 4 * 1;
+       int generatedpuzzle = 16;
+        for(int i = 0; i < 4; i++)
+        {
+            int a = ((generatedpuzzle) - (end - i));
+            Debug.Log("generated puzzle id: " + a);
+        }
+    }
+
 
     public void OpenAds()
     {

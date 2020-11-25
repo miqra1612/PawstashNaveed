@@ -118,6 +118,7 @@ public class GamesManager : MonoBehaviour
     IEnumerator runTimer()
     {
         int a = (int)time;
+        int adsTimer = 0;
 
         while(minutes >= 0 && a >= 0)
         {
@@ -134,6 +135,7 @@ public class GamesManager : MonoBehaviour
                 if(time < 0)
                 {
                     minutes--;
+                    adsTimer++;
                     time = 59;
                 }
 
@@ -150,6 +152,12 @@ public class GamesManager : MonoBehaviour
             {
                 finnishTime = 0;
                 finnishMinute++;
+            }
+
+            if(adsTimer >= 3)
+            {
+                AdsManager.instance.ShowInterstitialAdsEvery3Minutes();
+                adsTimer = 0;
             }
 
             yield return new WaitForSeconds(1);

@@ -34,7 +34,9 @@ public class AdsManager : MonoBehaviour
     {
         #if UNITY_ANDROID
             string bannerTestUnitId = "ca-app-pub-3940256099942544/6300978111";
-            string yourAndroidBannerAdID = "put your true add ID here ( don't use your add id for test, only for rellease)";
+
+        //put your true add ID here ( don't use your add id for test, only for rellease)
+            string yourAndroidBannerAdID = "ca-app-pub-1401014668068041/8555397850";
 
 
         #elif UNITY_IPHONE
@@ -69,7 +71,10 @@ public class AdsManager : MonoBehaviour
     {
     #if UNITY_ANDROID
         string adTestUnitId = "ca-app-pub-3940256099942544/1033173712";
-        string yourAndroidInsterstitialAdID = "put your true add ID here ( don't use your add id for test, only for rellease)";
+
+        //put your true add ID here ( don't use your add id for test, only for rellease)
+        string yourAndroidInsterstitialAdID = "ca-app-pub-1401014668068041/7253746868";
+
     #elif UNITY_IPHONE
         string adUnitId = "ca-app-pub-3940256099942544/4411468910";
         string yourIphoneBannerAdID = "put your true add ID here ( don't use your add id for test, only for rellease)";
@@ -105,8 +110,18 @@ public class AdsManager : MonoBehaviour
     private void HandleOnAdClosed(object sender, EventArgs e)
     {
         SettingManager.sg.DebugText("close ads");
+
         interstitial.Destroy();
-        SceneController.instance.ReloadLevel();
+
+        if(GamesManager.instance.isPlaying == false)
+        {
+            SceneController.instance.ReloadLevel();
+        }
+        else
+        {
+            RequestInterstitial();
+        }
+        
     }
 
     private void HandleOnAdOpened(object sender, EventArgs e)
@@ -117,8 +132,13 @@ public class AdsManager : MonoBehaviour
     private void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs e)
     {
         SettingManager.sg.DebugText("fail to load");
+
         interstitial.Destroy();
-        SceneController.instance.ReloadLevel();
+
+        if (GamesManager.instance.isPlaying == false)
+        {
+            SceneController.instance.ReloadLevel();
+        }
     }
 
     private void HandleOnAdLoaded(object sender, EventArgs e)
@@ -130,7 +150,10 @@ public class AdsManager : MonoBehaviour
     public void RequestRewardAds()
     {
         string rewardedUnitID = "ca-app-pub-3940256099942544/5224354917";
-        string realRewardedUnitID = "place your real rewarded ads unit here ( don't use real ads unit during test, always use test ID)";
+
+        //place your real rewarded ads unit here ( don't use real ads unit during test, always use test ID)
+        string realRewardedUnitID = "ca-app-pub-1401014668068041/3961546724";
+
         this.rewardedAd = new RewardedAd(rewardedUnitID);
 
         // Called when an ad request has successfully loaded.
@@ -186,10 +209,8 @@ public class AdsManager : MonoBehaviour
 
     // Start is called before the first frame update
 
-
     void Start()
     {
-        DontDestroyOnLoad(gameObject);
         
     }
 
@@ -211,7 +232,7 @@ public class AdsManager : MonoBehaviour
     {
         string s = SaveLoadData.instance.playerData.addFree;
 
-        if (s == "false")
+        if (s == "false" || s == "")
         {
             if (bannerView == null)
             {
@@ -228,7 +249,7 @@ public class AdsManager : MonoBehaviour
     {
         string s = SaveLoadData.instance.playerData.addFree;
 
-        if(s == "false")
+        if(s == "false" || s == "")
         {
             if (this.interstitial.IsLoaded())
             {
@@ -241,6 +262,25 @@ public class AdsManager : MonoBehaviour
         }
     }
 
+    public void ShowInterstitialAdsEvery3Minutes()
+    {
+
+        string s = SaveLoadData.instance.playerData.addFree;
+
+        if (s == "false" || s == "")
+        {
+            if (this.interstitial.IsLoaded())
+            {
+                this.interstitial.Show();
+            }
+            else
+            {
+
+                this.interstitial.Show();
+            }
+        }
+    }
+
     public void UserChoseToWatchAd()
     {
         if (this.rewardedAd.IsLoaded())
@@ -248,4 +288,6 @@ public class AdsManager : MonoBehaviour
             this.rewardedAd.Show();
         }
     }
+
+    
 }

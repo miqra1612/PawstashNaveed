@@ -50,6 +50,7 @@ public class SettingManager : MonoBehaviour
             SaveLoadData.instance.playerData.solutions = 10;
             SaveLoadData.instance.playerData.challengeID = 1;
             SaveLoadData.instance.playerData.addFree = "false";
+            SaveLoadData.instance.playerData.infinitePuzzle = "false";
         }
        
 

@@ -376,18 +376,28 @@ public class PuzzleGenerator : MonoBehaviour
 
     void VerticalGridFlip(int beginMultiplier, int endMultiplier)
     {
-        for (int i = puzzleSize * beginMultiplier; i < puzzleSize * endMultiplier; i++)
+        int begin = puzzleSize * beginMultiplier;
+        int end = puzzleSize * endMultiplier;
+        int s = 0;
+        for (int i = begin; i < end; i++)
         {
+            
             string temp = generatedPuzzle[i].GetComponent<TilesColor>().colorID;
-            //Debug.Log("Warna awal grid 1 tile: " + i + " " + temp);
+            //Debug.Log("early color grid 1 tile: " + i + " " + temp);
             //first row
-            generatedPuzzle[i].GetComponent<TilesColor>().colorID = generatedPuzzle[generatedPuzzle.Count - (i + 1)].GetComponent<TilesColor>().colorID;
+            generatedPuzzle[i].GetComponent<TilesColor>().colorID = generatedPuzzle[generatedPuzzle.Count - (end - s)].GetComponent<TilesColor>().colorID;
             //second row
-            generatedPuzzle[generatedPuzzle.Count - (i + 1)].GetComponent<TilesColor>().colorID = temp;
+            generatedPuzzle[generatedPuzzle.Count - (end - s)].GetComponent<TilesColor>().colorID = temp;
             //change first row
             generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
             //change second row
-            generatedPuzzle[generatedPuzzle.Count - (i + 1)].GetComponent<TilesColor>().ChangeColor();
+            generatedPuzzle[generatedPuzzle.Count - (end - s)].GetComponent<TilesColor>().ChangeColor();
+            s++;
+
+            //for debuging
+            //int a = generatedPuzzle.Count - (end - s);
+            //s++;
+            //Debug.Log("generated puzzle id: " + a);
         }
     }
 

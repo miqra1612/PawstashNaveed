@@ -86,7 +86,7 @@ public class PlayerData
     public int infinityTimer;
     public int infinityTurn;
     public string addFree;
-    public int infinitePuzzle;
+    public string infinitePuzzle;
     public int solutions;
 
     [Header("This part for game item statistic")]
