@@ -70,6 +70,8 @@ public class GamesManager : MonoBehaviour
             time = 00;
             minutes = 60;
             turn = 100;
+            score = SaveLoadData.instance.playerData.eassyScore;
+            scoreDisplay.text = score.ToString();
             difficulty.text = "Easy";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
@@ -79,6 +81,8 @@ public class GamesManager : MonoBehaviour
             time = 00;
             minutes = 50;
             turn = 90;
+            score = SaveLoadData.instance.playerData.mediumScore;
+            scoreDisplay.text = score.ToString();
             difficulty.text = "Medium";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
@@ -88,6 +92,8 @@ public class GamesManager : MonoBehaviour
             time = 00;
             minutes = 40;
             turn = 80;
+            score = SaveLoadData.instance.playerData.hardScore;
+            scoreDisplay.text = score.ToString();
             difficulty.text = "Hard";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
@@ -97,6 +103,8 @@ public class GamesManager : MonoBehaviour
             time = 00;
             minutes = 30;
             turn = 70;
+            score = SaveLoadData.instance.playerData.expertScore;
+            scoreDisplay.text = score.ToString();
             difficulty.text = "Expert";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
@@ -106,6 +114,8 @@ public class GamesManager : MonoBehaviour
             time = 00;
             minutes = 20;
             turn = 60;
+            score = SaveLoadData.instance.playerData.giantScore;
+            scoreDisplay.text = score.ToString();
             difficulty.text = "Giant";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");

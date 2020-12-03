@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
-
+using UnityEngine.Purchasing.Security;
 
 public class Purchaser : MonoBehaviour, IStoreListener
 {
@@ -20,6 +20,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
     private string getInfinityTurn_10 = "10_infinity_moves";
     private string getExploders_10 = "10_exploders";
 
+    public List<string> receiptProductID;
 
     // end region
 
@@ -34,6 +35,14 @@ public class Purchaser : MonoBehaviour, IStoreListener
         {
             InitializedPurchaseItem();
         }
+
+        
+    }
+
+    IEnumerator StartLocalChecking()
+    {
+        yield return new WaitForSeconds(1);
+        CheckReceipt();
     }
 
     bool IsInitialize()
@@ -46,7 +55,9 @@ public class Purchaser : MonoBehaviour, IStoreListener
     {
         if (IsInitialize())
         {
+            SettingManager.sg.DebugText("Already Initialized");
             return;
+
         }
 
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
@@ -61,6 +72,7 @@ public class Purchaser : MonoBehaviour, IStoreListener
         builder.AddProduct(getInfinityTurn_10, ProductType.Consumable);
 
         UnityPurchasing.Initialize(this, builder);
+       
     }
 
     public void BuyInfinitePuzzle()
@@ -99,6 +111,9 @@ public class Purchaser : MonoBehaviour, IStoreListener
         
         m_storeController = controller;
         m_extensionProvider = extensions;
+        SettingManager.sg.DebugText("Success Initialized IAP");
+
+        StartCoroutine(StartLocalChecking());
     }
 
     public void OnInitializeFailed(InitializationFailureReason error)
@@ -160,10 +175,63 @@ public class Purchaser : MonoBehaviour, IStoreListener
         }
 
         SaveLoadData.instance.SavingData();
+
+        //validate purchase here
         
+        bool validPurchase = true; // Presume valid for platforms with no R.V.
+
+        // Unity IAP's validation logic is only included on these platforms.
+#if UNITY_ANDROID || UNITY_IOS || UNITY_STANDALONE_OSX
+        // Prepare the validator with the secrets we prepared in the Editor
+        // obfuscation window.
+        var validator = new CrossPlatformValidator(GooglePlayTangle.Data(),
+            AppleTangle.Data(), Application.identifier);
+
+        try
+        {
+            // On Google Play, result has a single product ID.
+            // On Apple stores, receipts contain multiple products.
+            var result = validator.Validate(args.purchasedProduct.receipt);
+            // For informational purposes, we list the receipt(s)
+            Debug.Log("Receipt is valid. Contents:");
+            foreach (IPurchaseReceipt productReceipt in result)
+            {
+                Debug.Log(productReceipt.productID);
+                Debug.Log(productReceipt.purchaseDate);
+                Debug.Log(productReceipt.transactionID);
+
+                if (productReceipt.productID == infinitePuzzles)
+                {
+                    SaveLoadData.instance.playerData.infinitePuzzlePurchaseID = productReceipt.productID;
+                    SaveLoadData.instance.playerData.infinitePuzzlePurchaseDate = productReceipt.purchaseDate.ToString();
+                }
+                else if (productReceipt.productID == goAdsFree)
+                {
+                    SaveLoadData.instance.playerData.adsFreePurchaseID = productReceipt.productID;
+                    SaveLoadData.instance.playerData.adsFreePurchaseDate = productReceipt.purchaseDate.ToString();
+                }
+            }
+        }
+        catch (IAPSecurityException)
+        {
+            Debug.Log("Invalid receipt, not unlocking content");
+            validPurchase = false;
+        }
+#endif
+
+        if (validPurchase)
+        {
+            // Unlock the appropriate content here.
+            SettingManager.sg.DebugText("valid purchased");
+        }
+
+
+        SaveLoadData.instance.SavingData();
+
+
         return PurchaseProcessingResult.Complete;
     }
-
+    
     IEnumerator RetryInit()
     {
         yield return new WaitForSeconds(1);
@@ -196,29 +264,61 @@ public class Purchaser : MonoBehaviour, IStoreListener
             SettingManager.sg.DebugText("fail to initialize");
         }
     }
-
-    public void RestorePurchases()
+    
+    public void CheckReceipt()
     {
-        if (!IsInitialize())
+        DateTime puzzleDate = DateTime.Parse(SaveLoadData.instance.playerData.infinitePuzzlePurchaseDate);
+        DateTime adsFreeDate = DateTime.Parse(SaveLoadData.instance.playerData.adsFreePurchaseDate);
+
+        int result1 = DateTime.Compare(puzzleDate, System.DateTime.Now);
+        int result2 = DateTime.Compare(adsFreeDate, System.DateTime.Now);
+
+        if(result1 <= 30)
         {
-            Debug.Log("RestorePurchases FAIL. Not initialized.");
-
-            return;
-        }
-
-        if (Application.platform == RuntimePlatform.IPhonePlayer ||
-            Application.platform == RuntimePlatform.OSXPlayer)
-        {
-            Debug.Log("RestorePurchases started ...");
-
-            var apple = m_extensionProvider.GetExtension<IAppleExtensions>();
-            apple.RestoreTransactions((result) => {
-                Debug.Log("RestorePurchases continuing: " + result + ". If no further messages, no purchases available to restore.");
-            });
+            SaveLoadData.instance.playerData.infinitePuzzle = "true";
+            SettingManager.sg.DebugText("receipt checked infinite puzzle");
         }
         else
         {
-            Debug.Log("RestorePurchases FAIL. Not supported on this platform. Current = " + Application.platform);
+            SaveLoadData.instance.playerData.infinitePuzzle = "false";
         }
+
+        if (result2 <= 30)
+        {
+            SaveLoadData.instance.playerData.addFree = "true";
+            SettingManager.sg.DebugText("receipt checked ads free");
+        }
+        else
+        {
+            SaveLoadData.instance.playerData.addFree = "false";
+        }
+
+
+        /*
+        Product product = m_storeController.products.WithID(infinitePuzzles);
+
+        if(product != null && product.hasReceipt)
+        {
+            SaveLoadData.instance.playerData.infinitePuzzle = "true";
+            SettingManager.sg.DebugText("receipt checked infinite puzzle");
+        }
+        else
+        {
+            SaveLoadData.instance.playerData.infinitePuzzle = "false";
+        }
+
+        Product adsfree = m_storeController.products.WithID(goAdsFree);
+
+        if (adsfree != null && product.hasReceipt)
+        {
+            SaveLoadData.instance.playerData.addFree = "true";
+            SettingManager.sg.DebugText("receipt checked ads free");
+        }
+        else
+        {
+            SaveLoadData.instance.playerData.addFree = "false";
+        }
+        */
+        
     }
 }

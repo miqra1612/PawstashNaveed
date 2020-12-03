@@ -7,7 +7,7 @@ using GoogleMobileAds.Api;
 public class SettingManager : MonoBehaviour
 {
     public Text Debugtext;
-
+   
     public Toggle[] shapes;
     public Toggle[] lightTiles;
     public Toggle[] darkTiles;
@@ -15,6 +15,7 @@ public class SettingManager : MonoBehaviour
     [Header("other setting here")]
     public Toggle vibration;
     public Toggle sound;
+    public AudioSource[] audioPlayer;
     private PuzzleGenerator pg;
 
     private string appID = "ca-app-pub-3850042963742973~2621600816";
@@ -245,11 +246,26 @@ public class SettingManager : MonoBehaviour
         if (a == "true")
         {
             PlayerPrefs.SetString("sound", "false");
+            if(audioPlayer.Length > 0)
+            {
+                for(int i = 0; i < audioPlayer.Length; i++)
+                {
+                    audioPlayer[i].mute = true;
+                }
+               
+            }
         }
         else
         {
             PlayerPrefs.SetString("sound", "true");
-           
+            if (audioPlayer.Length > 0)
+            {
+                for (int i = 0; i < audioPlayer.Length; i++)
+                {
+                    audioPlayer[i].mute = false;
+                }
+            }
+
         }
     }
 

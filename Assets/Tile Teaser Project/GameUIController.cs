@@ -301,7 +301,16 @@ public class GameUIController : MonoBehaviour
             {
                 SaveLoadData.instance.playerData.eassyGameLeft--;
                 SaveLoadData.instance.playerData.eassyGamePlayed++;
-                SaveLoadData.instance.playerData.eassyWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+               
+                if(SaveLoadData.instance.playerData.eassyGameWon < 1)
+                {
+                    SaveLoadData.instance.playerData.eassyWinRate = 0;
+                }
+                else
+                {
+                    SaveLoadData.instance.playerData.eassyWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+
+                }
 
             }
             gameRemaining = SaveLoadData.instance.playerData.eassyGameLeft;
@@ -313,8 +322,16 @@ public class GameUIController : MonoBehaviour
             {
                 SaveLoadData.instance.playerData.mediumGameLeft--;
                 SaveLoadData.instance.playerData.mediumGamePlayed++;
-                SaveLoadData.instance.playerData.mediumWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+                
+                if (SaveLoadData.instance.playerData.mediumGameWon < 1)
+                {
+                    SaveLoadData.instance.playerData.mediumWinRate = 0;
+                }
+                else
+                {
+                    SaveLoadData.instance.playerData.mediumWinRate = ((float)SaveLoadData.instance.playerData.mediumGameWon / (float)SaveLoadData.instance.playerData.mediumGamePlayed) * 100;
 
+                }
             }
             gameRemaining = SaveLoadData.instance.playerData.mediumGameLeft;
 
@@ -325,8 +342,16 @@ public class GameUIController : MonoBehaviour
             {
                 SaveLoadData.instance.playerData.hardGameLeft--;
                 SaveLoadData.instance.playerData.hardGamePlayed++;
-                SaveLoadData.instance.playerData.hardWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+               
+                if (SaveLoadData.instance.playerData.hardGameWon < 1)
+                {
+                    SaveLoadData.instance.playerData.hardWinRate = 0;
+                }
+                else
+                {
+                    SaveLoadData.instance.playerData.hardWinRate = ((float)SaveLoadData.instance.playerData.hardGameWon / (float)SaveLoadData.instance.playerData.hardGamePlayed) * 100;
 
+                }
             }
             gameRemaining = SaveLoadData.instance.playerData.hardGameLeft;
 
@@ -337,8 +362,16 @@ public class GameUIController : MonoBehaviour
             {
                 SaveLoadData.instance.playerData.expertGameLeft--;
                 SaveLoadData.instance.playerData.expertGamePlayed++;
-                SaveLoadData.instance.playerData.expertWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+               
+                if (SaveLoadData.instance.playerData.expertGameWon < 1)
+                {
+                    SaveLoadData.instance.playerData.expertWinRate = 0;
+                }
+                else
+                {
+                    SaveLoadData.instance.playerData.expertWinRate = ((float)SaveLoadData.instance.playerData.expertWinRate / (float)SaveLoadData.instance.playerData.expertGamePlayed) * 100;
 
+                }
             }
             gameRemaining = SaveLoadData.instance.playerData.expertGameLeft;
 
@@ -349,8 +382,16 @@ public class GameUIController : MonoBehaviour
             {
                 SaveLoadData.instance.playerData.giantGameLeft--;
                 SaveLoadData.instance.playerData.giantGamePlayed++;
-                SaveLoadData.instance.playerData.giantWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
+                
+                if (SaveLoadData.instance.playerData.giantGameWon < 1)
+                {
+                    SaveLoadData.instance.playerData.giantWinRate = 0;
+                }
+                else
+                {
+                    SaveLoadData.instance.playerData.giantWinRate = ((float)SaveLoadData.instance.playerData.giantGameWon / (float)SaveLoadData.instance.playerData.giantGameWon) * 100;
 
+                }
             }
             gameRemaining = SaveLoadData.instance.playerData.giantGameLeft;
             

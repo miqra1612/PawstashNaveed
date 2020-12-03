@@ -107,6 +107,11 @@ public class PlayerData
     public string continueGame;
     public string date;
     public List<string> tilesColor;
-    
+
+    [Header("This part for Purchase Data")]
+    public string infinitePuzzlePurchaseID;
+    public string infinitePuzzlePurchaseDate;
+    public string adsFreePurchaseID;
+    public string adsFreePurchaseDate;
 
 }

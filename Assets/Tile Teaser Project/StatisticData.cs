@@ -77,7 +77,7 @@ public class StatisticData : MonoBehaviour
         eassyGameWonValue.text = SaveLoadData.instance.playerData.eassyGameWon.ToString();
         eassyWinRateValue.text = SaveLoadData.instance.playerData.eassyWinRate.ToString("0.0") + "%";
         eassyBestTimeValue.text = SaveLoadData.instance.playerData.eassyBestMinute.ToString() + ":" + SaveLoadData.instance.playerData.eassyBestTime.ToString();
-        eassyAverageTimeValue.text = SaveLoadData.instance.playerData.eassyAverageTime.ToString();
+        eassyAverageTimeValue.text = eassyBestTimeValue.text; //SaveLoadData.instance.playerData.eassyAverageTime.ToString();
         eassyCurrentStreakValue.text = SaveLoadData.instance.playerData.eassyCurrentStreak.ToString();
         eassyBestWinStreakValue.text = SaveLoadData.instance.playerData.eassyBestWinStreak.ToString();
     }
@@ -89,7 +89,7 @@ public class StatisticData : MonoBehaviour
         mediumGameWonValue.text = SaveLoadData.instance.playerData.mediumGameWon.ToString();
         mediumWinRateValue.text = SaveLoadData.instance.playerData.mediumWinRate.ToString("0.0") + "%";
         mediumBestTimeValue.text = SaveLoadData.instance.playerData.mediumBestMinute.ToString() + ":" + SaveLoadData.instance.playerData.mediumBestTime.ToString();
-        mediumAverageTimeValue.text = SaveLoadData.instance.playerData.mediumAverageTime.ToString();
+        mediumAverageTimeValue.text = mediumBestTimeValue.text; //SaveLoadData.instance.playerData.mediumAverageTime.ToString();
         mediumCurrentStreakValue.text = SaveLoadData.instance.playerData.mediumCurrentStreak.ToString();
         mediumBestWinStreakValue.text = SaveLoadData.instance.playerData.mediumBestWinStreak.ToString();
     }
@@ -101,7 +101,7 @@ public class StatisticData : MonoBehaviour
         hardGameWonValue.text = SaveLoadData.instance.playerData.hardGameWon.ToString();
         hardWinRateValue.text = SaveLoadData.instance.playerData.hardWinRate.ToString("0.0") + "%";
         hardBestTimeValue.text = SaveLoadData.instance.playerData.hardBestMinute.ToString() + ":" + SaveLoadData.instance.playerData.hardBestTime.ToString();
-        hardAverageTimeValue.text = SaveLoadData.instance.playerData.hardAverageTime.ToString();
+        hardAverageTimeValue.text = hardBestTimeValue.text; //SaveLoadData.instance.playerData.hardAverageTime.ToString();
         hardCurrentStreakValue.text = SaveLoadData.instance.playerData.hardCurrentStreak.ToString();
         hardBestWinStreakValue.text = SaveLoadData.instance.playerData.hardBestWinStreak.ToString();
     }
@@ -113,7 +113,7 @@ public class StatisticData : MonoBehaviour
         expertGameWonValue.text = SaveLoadData.instance.playerData.expertGameWon.ToString(); 
         expertWinRateValue.text = SaveLoadData.instance.playerData.expertWinRate.ToString("0.0") + "%";
         expertBestTimeValue.text = SaveLoadData.instance.playerData.expertBestMinute.ToString() + ":" + SaveLoadData.instance.playerData.expertBestTime.ToString();
-        expertAverageTimeValue.text = SaveLoadData.instance.playerData.expertAverageTime.ToString();
+        expertAverageTimeValue.text = expertBestTimeValue.text; //SaveLoadData.instance.playerData.expertAverageTime.ToString();
         expertCurrentStreakValue.text = SaveLoadData.instance.playerData.expertCurrentStreak.ToString();
         expertBestWinStreakValue.text = SaveLoadData.instance.playerData.expertBestWinStreak.ToString();
     }
@@ -125,7 +125,7 @@ public class StatisticData : MonoBehaviour
         giantGameWonValue.text = SaveLoadData.instance.playerData.giantGameWon.ToString();
         giantWinRateValue.text = SaveLoadData.instance.playerData.giantWinRate.ToString("0.0") + "%";
         giantBestTimeValue.text = SaveLoadData.instance.playerData.giantBestMinute.ToString() + ":" + SaveLoadData.instance.playerData.giantBestTime.ToString();
-        giantAverageTimeValue.text = SaveLoadData.instance.playerData.giantAverageTime.ToString();
+        giantAverageTimeValue.text = giantBestTimeValue.text; //SaveLoadData.instance.playerData.giantAverageTime.ToString();
         giantCurrentStreakValue.text = SaveLoadData.instance.playerData.giantCurrentStreak.ToString();
         giantBestWinStreakValue.text = SaveLoadData.instance.playerData.giantBestWinStreak.ToString();
     }

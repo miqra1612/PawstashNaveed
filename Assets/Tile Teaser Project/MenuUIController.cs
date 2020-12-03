@@ -15,7 +15,9 @@ public class MenuUIController : MonoBehaviour
 
     private void Awake()
     {
+
         instance = this;
+        SaveLoadData.instance.playerData.addFree = "false";
     }
 
     // Start is called before the first frame update
@@ -41,6 +43,9 @@ public class MenuUIController : MonoBehaviour
         {
             ShowContinueButton();
         }
+
+        
+
         AdsManager.instance.HideBanner();
     }
 
