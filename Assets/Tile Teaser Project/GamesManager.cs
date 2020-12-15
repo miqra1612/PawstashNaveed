@@ -5,14 +5,16 @@ using UnityEngine.UI;
 
 public class GamesManager : MonoBehaviour
 {
-    private float time = 999;
-    private int minutes = 60;
+    public float time = 999;
+    public int minutes = 60;
     public int turn = 999;
     public int score = 0;
     private float beginTime;
     public float finnishTime;
     public int finnishMinute;
     public int undoAmount;
+    public bool duringGame = false;
+
 
     private PuzzleGenerator puzzle;
     private GameUIController gameUIcontroler;
@@ -31,6 +33,7 @@ public class GamesManager : MonoBehaviour
     public GameObject infiniteIconTimer;
     private string vibration;
 
+    public Text[] solutionDisplay;
     public GameObject[] UIpanels;
     
     public static GamesManager instance;
@@ -51,6 +54,7 @@ public class GamesManager : MonoBehaviour
         infiniteTimeValue.text = SaveLoadData.instance.playerData.infinityTimer.ToString();
         infiniteTurnValue.text = SaveLoadData.instance.playerData.infinityTurn.ToString();
 
+        ShowRemainingSolution();
         checkDifficulty();
         
     }
@@ -61,6 +65,24 @@ public class GamesManager : MonoBehaviour
         
     }
 
+    public void GetSavedData()
+    {
+        time = SaveLoadData.instance.playerData.seconds;
+        minutes = SaveLoadData.instance.playerData.minutes;
+        turn = SaveLoadData.instance.playerData.turn;
+        
+        timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
+        turnDisplay.text = "Turn: " + turn.ToString("0");
+    }
+
+    public void ShowRemainingSolution()
+    {
+        for (int i = 0; i < solutionDisplay.Length; i++)
+        {
+            solutionDisplay[i].text = "Solution (" + SaveLoadData.instance.playerData.solutions + ")";
+        }
+    }
+
     void checkDifficulty()
     {
         int mode = puzzle.puzzleSize;
@@ -68,10 +90,10 @@ public class GamesManager : MonoBehaviour
         if (mode == 4)
         {
             time = 00;
-            minutes = 60;
+            minutes = 5;
             turn = 100;
             score = SaveLoadData.instance.playerData.eassyScore;
-            scoreDisplay.text = score.ToString();
+            scoreDisplay.text = "Score:\n" + score.ToString();
             difficulty.text = "Easy";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
@@ -79,10 +101,10 @@ public class GamesManager : MonoBehaviour
         else if (mode == 5)
         {
             time = 00;
-            minutes = 50;
+            minutes = 5;
             turn = 90;
             score = SaveLoadData.instance.playerData.mediumScore;
-            scoreDisplay.text = score.ToString();
+            scoreDisplay.text = "Score:\n" + score.ToString();
             difficulty.text = "Medium";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
@@ -90,10 +112,10 @@ public class GamesManager : MonoBehaviour
         else if (mode == 6)
         {
             time = 00;
-            minutes = 40;
+            minutes = 5;
             turn = 80;
             score = SaveLoadData.instance.playerData.hardScore;
-            scoreDisplay.text = score.ToString();
+            scoreDisplay.text = "Score:\n" + score.ToString();
             difficulty.text = "Hard";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
@@ -101,10 +123,10 @@ public class GamesManager : MonoBehaviour
         else if (mode == 7)
         {
             time = 00;
-            minutes = 30;
+            minutes = 5;
             turn = 70;
             score = SaveLoadData.instance.playerData.expertScore;
-            scoreDisplay.text = score.ToString();
+            scoreDisplay.text = "Score:\n" + score.ToString();
             difficulty.text = "Expert";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
@@ -112,16 +134,54 @@ public class GamesManager : MonoBehaviour
         else if (mode == 8)
         {
             time = 00;
-            minutes = 20;
+            minutes = 5;
             turn = 60;
             score = SaveLoadData.instance.playerData.giantScore;
-            scoreDisplay.text = score.ToString();
+            scoreDisplay.text = "Score:\n"+ score.ToString();
             difficulty.text = "Giant";
             timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
             turnDisplay.text = "Turn: " + turn.ToString("0");
         }
         beginTime = time;
 
+        DecreaseGameLeft();
+
+    }
+
+   void DecreaseGameLeft()
+   {
+        if (difficulty.text == "Easy")
+        {
+            SaveLoadData.instance.playerData.eassyGameLeft--;
+            SaveLoadData.instance.playerData.eassyGamePlayed++;
+
+        }
+        else if (difficulty.text == "Medium")
+        {
+            SaveLoadData.instance.playerData.mediumGameLeft--;
+            SaveLoadData.instance.playerData.mediumGamePlayed++;
+
+        }
+        else if (difficulty.text == "Hard")
+        {
+            SaveLoadData.instance.playerData.hardGameLeft--;
+            SaveLoadData.instance.playerData.hardGamePlayed++;
+
+        }
+        else if (difficulty.text == "Expert")
+        {
+            SaveLoadData.instance.playerData.expertGameLeft--;
+            SaveLoadData.instance.playerData.expertGamePlayed++;
+        }
+        else if (difficulty.text == "Giant")
+        {
+            SaveLoadData.instance.playerData.giantGameLeft--;
+            SaveLoadData.instance.playerData.giantGamePlayed++;
+        }
+
+        //Debug.Log("Level: " + difficulty.text);
+
+        SaveLoadData.instance.SavingData();
 
     }
 
@@ -186,6 +246,7 @@ public class GamesManager : MonoBehaviour
     public void StartGame()
     {
         puzzle.StartChangeColor();
+        duringGame = true;
         AdsManager.instance.ShowBannerAgain();
     }
 
@@ -242,6 +303,7 @@ public class GamesManager : MonoBehaviour
     public void EndGame()
     {
         isPlaying = false;
+        duringGame = false;
         StopAllCoroutines();
 
         //finnishTime = beginTime - time;

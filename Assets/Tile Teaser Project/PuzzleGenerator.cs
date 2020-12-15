@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PuzzleGenerator : MonoBehaviour
 {
     public GameObject tiles;
     public GameObject tilesParent;
     public int puzzleSize = 4;
+    public TilesColor tileVertical;
+    public TilesColor tileHorizontal;
+    public TilesColor tileColor;
+
 
     public Sprite[] tilesSprite;
     public List<GameObject> generatedPuzzle;
@@ -23,17 +26,23 @@ public class PuzzleGenerator : MonoBehaviour
     int b;
 
     // Start is called before the first frame update
+
     void Start()
     {
+        
+
         gameManager = GameObject.FindGameObjectWithTag("manager").GetComponent<GamesManager>();
         puzzleSize = PlayerPrefs.GetInt("size");
+        
         SaveLoadData.instance.playerData.puzzleSize = puzzleSize;
 
         string Continue = SaveLoadData.instance.playerData.continueGame;
+        SettingManager.sg.DebugText(Continue);
         a = SaveLoadData.instance.playerData.patternID;
 
         if (Continue == "true")
         {
+            
             CreateGridForContinueGame();
         }
         else
@@ -63,6 +72,8 @@ public class PuzzleGenerator : MonoBehaviour
         lightTileColor = PlayerPrefs.GetString("LightColor");
         DarkTileColor = PlayerPrefs.GetString("DarkColor");
         string shape = PlayerPrefs.GetString("shape");
+
+        SettingManager.sg.DebugText("Creating Grid");
 
         for (int i = 0; i < puzzleSize; i++)
         {
@@ -112,9 +123,11 @@ public class PuzzleGenerator : MonoBehaviour
                 generatedPuzzle.Add(go);
             }
         }
-
+        preclickID = SaveLoadData.instance.playerData.preclicksID;
         StartCoroutine(ChangeSavedPuzzleColor(shape));
+
        
+
     }
 
     IEnumerator ChangeSavedPuzzleColor(string shape)
@@ -123,8 +136,8 @@ public class PuzzleGenerator : MonoBehaviour
         for (int i = 0; i < generatedPuzzle.Count; i++)
         {
             generatedPuzzle[i].GetComponent<TilesColor>().colorID = SaveLoadData.instance.playerData.tilesColor[i];
-            Debug.Log("jadiin");
-            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
+            //Debug.Log("jadiin");
+            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor(false);
 
             if (shape == "rounded")
             {
@@ -139,6 +152,8 @@ public class PuzzleGenerator : MonoBehaviour
                 generatedPuzzle[i].GetComponent<SpriteRenderer>().sprite = tilesSprite[2];
             }
         }
+
+        PreClickForContinueGame();
     }
 
     void SetGridPosition()
@@ -198,19 +213,17 @@ public class PuzzleGenerator : MonoBehaviour
     IEnumerator ChangeColor()
     {
         yield return null;
-        
+        SettingManager.sg.DebugText("Change Grid Color");
         for (int i = 0; i < generatedPuzzle.Count; i++)
         {
-           generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
-          
+           generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor(false);
+           SettingManager.sg.DebugText("Change Grid Color: " + i);
         }
         
         yield return new WaitForSeconds(0.01f);
-
         StartCoroutine(PreClick());
-        
-       
-        
+
+
     }
 
     public void StartChangeColor()
@@ -237,7 +250,7 @@ public class PuzzleGenerator : MonoBehaviour
             gameManager.EndGame();
 
             int gameScore = puzzleSize * puzzleSize;
-
+            SaveLoadData.instance.playerData.continueGame = "false";
             gc.ShowWinningResult(gameScore, 1);
             gameManager.OpenPanel(1);
             SaveLoadData.instance.playerData.patternID++;
@@ -268,16 +281,17 @@ public class PuzzleGenerator : MonoBehaviour
 
             for (int i = 0; i < generatedPuzzle.Count; i++)
             {
-                generatedPuzzle[i].GetComponent<TilesColor>().colorID = DarkTileColor;
-                generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
+                generatedPuzzle[i].GetComponent<TilesColor>().colorID = "redD";
+                generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor(false);
             }
 
             StartCoroutine(RunSolution());
             if(replay == false)
             {
                 GameUIController.instance.GetSolution();
+                
             }
-           
+            
         }
        
     }
@@ -290,7 +304,7 @@ public class PuzzleGenerator : MonoBehaviour
         {
             //preClickStep[i].GetComponent<TilesColor>().SolutionTiles();
             generatedPuzzle[i].GetComponent<TilesColor>().colorID = firstTimeGenerated[i];
-            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
+            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor(false);
         }
 
         yield return new WaitForSeconds(2f);
@@ -307,7 +321,68 @@ public class PuzzleGenerator : MonoBehaviour
         }
     }
 
-    public void FlipColor()
+    public void DuringGameSolution(bool replay)
+    {
+        int a = SaveLoadData.instance.playerData.solutions;
+        GameUIController.instance.bottomPanel.SetActive(false);
+        GameUIController.instance.topPanel.SetActive(false);
+        GameUIController.instance.duringGameSolutionPanel.SetActive(true);
+
+        if (a > 0)
+        {
+            gameManager.isPlaying = false;
+
+            for (int i = 0; i < generatedPuzzle.Count; i++)
+            {
+                generatedPuzzle[i].GetComponent<TilesColor>().colorID = "redD";
+                generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor(false);
+            }
+
+            StartCoroutine(RunSolution());
+            if (replay == false)
+            {
+                GameUIController.instance.GetSolution();
+               
+                Debug.Log("Bocor");
+            }
+            
+        }
+
+    }
+
+    public void BackToGameAfterSolution()
+    {
+        gameManager.isPlaying = false;
+
+        GameUIController.instance.bottomPanel.SetActive(true);
+        GameUIController.instance.topPanel.SetActive(true);
+        GameUIController.instance.duringGameSolutionPanel.SetActive(false);
+
+        for (int i = 0; i < generatedPuzzle.Count; i++)
+        {
+            generatedPuzzle[i].GetComponent<TilesColor>().colorID = DarkTileColor;
+            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor(false);
+        }
+
+        StartCoroutine(AfterSolution());
+    }
+
+    IEnumerator AfterSolution()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        for (int i = 0; i < firstTimeGenerated.Count; i++)
+        {
+            //preClickStep[i].GetComponent<TilesColor>().SolutionTiles();
+            generatedPuzzle[i].GetComponent<TilesColor>().colorID = firstTimeGenerated[i];
+            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor(false);
+        }
+
+        gameManager.isPlaying = true;
+    }
+
+
+    public void FlipColor(bool undoing)
     {
         for (int i = 0; i < generatedPuzzle.Count; i++)
         {
@@ -315,11 +390,16 @@ public class PuzzleGenerator : MonoBehaviour
             
         }
 
+        if (!undoing)
+        {
+            stepDone.Add(tileColor);
+        }
+        
         gameManager.turn--;
         SaveLoadData.instance.playerData.flipColor++;
     }
 
-    public void FlipVertical()
+    public void FlipVertical(bool undoing)
     {
         bool grid1 = false;
         bool grid2 = false;
@@ -370,6 +450,11 @@ public class PuzzleGenerator : MonoBehaviour
             VerticalGridFlip(3, 4);
         }
 
+        if (!undoing)
+        {
+            stepDone.Add(tileVertical);
+        }
+        
         gameManager.turn--;
         SaveLoadData.instance.playerData.flipVertical++;
     }
@@ -389,9 +474,9 @@ public class PuzzleGenerator : MonoBehaviour
             //second row
             generatedPuzzle[generatedPuzzle.Count - (end - s)].GetComponent<TilesColor>().colorID = temp;
             //change first row
-            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor();
+            generatedPuzzle[i].GetComponent<TilesColor>().ChangeColor(false);
             //change second row
-            generatedPuzzle[generatedPuzzle.Count - (end - s)].GetComponent<TilesColor>().ChangeColor();
+            generatedPuzzle[generatedPuzzle.Count - (end - s)].GetComponent<TilesColor>().ChangeColor(false);
             s++;
 
             //for debuging
@@ -401,9 +486,14 @@ public class PuzzleGenerator : MonoBehaviour
         }
     }
 
-    public void FlipHorizontal()
+    public void FlipHorizontal(bool undoing)
     {
         HorizontalGridFlip();
+        if (!undoing)
+        {
+            stepDone.Add(tileHorizontal);
+        }
+        
         gameManager.turn--;
         SaveLoadData.instance.playerData.flipHorizontal++;
     }
@@ -444,9 +534,9 @@ public class PuzzleGenerator : MonoBehaviour
                 //second row
                 generatedPuzzle[(puzzleSize * tilesMultiplierEnd) - (j + 1)].GetComponent<TilesColor>().colorID = temp;
                 //change first row
-                generatedPuzzle[j + (puzzleSize * tilesMultiPlierBegin)].GetComponent<TilesColor>().ChangeColor();
+                generatedPuzzle[j + (puzzleSize * tilesMultiPlierBegin)].GetComponent<TilesColor>().ChangeColor(false);
                 //change second row
-                generatedPuzzle[(puzzleSize * tilesMultiplierEnd) - (j + 1)].GetComponent<TilesColor>().ChangeColor();
+                generatedPuzzle[(puzzleSize * tilesMultiplierEnd) - (j + 1)].GetComponent<TilesColor>().ChangeColor(false);
                 
                 /*
                  nilaiTileAwal = j + (puzzleSize * tilesMultiPlierBegin);
@@ -511,6 +601,7 @@ public class PuzzleGenerator : MonoBehaviour
 
     IEnumerator PreClick()
     {
+        SettingManager.sg.DebugText("Doing Preclick");
         int randomize = 0;
 
         if(puzzleSize == 4)
@@ -538,6 +629,7 @@ public class PuzzleGenerator : MonoBehaviour
         {
             int a = Random.Range(0, generatedPuzzle.Count);
             generatedPuzzle[a].GetComponent<TilesColor>().PreClickTiles();
+            preclickID.Add(a);
             yield return new WaitForSeconds(0.025f);
         }
 
@@ -548,8 +640,23 @@ public class PuzzleGenerator : MonoBehaviour
             firstTimeGenerated.Add(generatedPuzzle[i].GetComponent<TilesColor>().colorID);
         }
 
+        SaveLoadData.instance.playerData.tilesBeginingColor = firstTimeGenerated;
+        SaveLoadData.instance.playerData.preclicksID = preclickID;
+
     }
 
+
+    void PreClickForContinueGame()
+    {
+        for(int i = 0; i < preclickID.Count; i++)
+        {
+            preClickStep.Add(generatedPuzzle[preclickID[i]].GetComponent<TilesColor>());
+        }
+
+        firstTimeGenerated = SaveLoadData.instance.playerData.tilesBeginingColor;
+
+        gameManager.GetSavedData();
+    }
 
     //this function for test only
     void ManualClick()

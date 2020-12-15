@@ -6,6 +6,7 @@ public class TilesColor : MonoBehaviour
 {
     public string colorID;
     public CircleCollider2D col;
+    public string flipping;
     private Rigidbody2D rb;
     private GamesManager gameManager;
     private PuzzleGenerator puzzleGenerator;
@@ -64,12 +65,45 @@ public class TilesColor : MonoBehaviour
             colorID = DarkTileColor;
         }
 
-        ChangeColor();
+        ChangeColor(false);
     }
 
-    public void ChangeColor()
+    public void ChangeColor(bool undoing)
     {
-        if(colorID == "white")
+        if (undoing)
+        {
+            StartCoroutine(HighlightTiles());
+        }
+        else
+        {
+            if (colorID == "white")
+            {
+                objectSprite.color = Color.white;
+            }
+            else if (colorID == "black")
+            {
+                objectSprite.color = Color.black;
+            }
+            else if (colorID == "redL")
+            {
+                objectSprite.color = Color.red;
+            }
+            else if (colorID == "redD")
+            {
+                objectSprite.color = Color.red;
+            }
+        }
+        
+    }
+
+    IEnumerator HighlightTiles()
+    {
+       
+        objectSprite.color = Color.green;
+
+        yield return new WaitForSeconds(0.3f);
+
+        if (colorID == "white")
         {
             objectSprite.color = Color.white;
         }
@@ -98,7 +132,7 @@ public class TilesColor : MonoBehaviour
             colorID = lightTileColor;
         }
 
-        ChangeColor();
+        ChangeColor(false);
     }
 
     private void OnMouseDown()
@@ -142,7 +176,7 @@ public class TilesColor : MonoBehaviour
 
 
 
-            ChangeColor();
+            ChangeColor(false);
             StartCoroutine(ChangingOtherColor());
             puzzleGenerator.stepDone.Add(tc);
 
@@ -164,7 +198,7 @@ public class TilesColor : MonoBehaviour
             colorID = lightTileColor;
         }
         
-        ChangeColor();
+        ChangeColor(false);
         StartCoroutine(ChangingPreClickColor());
         puzzleGenerator.preClickStep.Add(tc);
 
@@ -185,7 +219,7 @@ public class TilesColor : MonoBehaviour
             colorID = lightTileColor;
         }
 
-        ChangeColor();
+        ChangeColor(false);
         StartCoroutine(ChangingPreClickColor());
         
     }
@@ -250,25 +284,38 @@ public class TilesColor : MonoBehaviour
         if (gameManager.isPlaying && gameManager.turn > 0)
         {
           
-
-            nearbyTiles.Clear();
-            col.enabled = true;
-
-            if (colorID == lightTileColor)
+            if(flipping == "Horizontal")
             {
-
-                colorID = DarkTileColor;
+                puzzleGenerator.FlipHorizontal(true);
+            }
+            else if(flipping == "Vertical")
+            {
+                puzzleGenerator.FlipVertical(true);
+            }
+            else if(flipping == "Colors")
+            {
+                puzzleGenerator.FlipColor(true);
             }
             else
             {
+                nearbyTiles.Clear();
+                col.enabled = true;
 
-                colorID = lightTileColor;
+                if (colorID == lightTileColor)
+                {
+
+                    colorID = DarkTileColor;
+                }
+                else
+                {
+
+                    colorID = lightTileColor;
+                }
+
+           
+                ChangeColor(false);
+                StartCoroutine(ChangingOtherColor());
             }
-
-            
-            ChangeColor();
-            StartCoroutine(ChangingOtherColor());
-            
         }
     }
 
@@ -289,7 +336,7 @@ public class TilesColor : MonoBehaviour
                 colorID = lightTileColor;
             }
 
-            ChangeColor();
+            ChangeColor(true);
             StartCoroutine(ChangingOtherColor());
 
        

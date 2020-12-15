@@ -106,7 +106,12 @@ public class PlayerData
     public int puzzleSize;
     public string continueGame;
     public string date;
+    public float seconds;
+    public int minutes;
+    public int turn;
     public List<string> tilesColor;
+    public List<int> preclicksID;
+    public List<string> tilesBeginingColor;
 
     [Header("This part for Purchase Data")]
     public string infinitePuzzlePurchaseID;

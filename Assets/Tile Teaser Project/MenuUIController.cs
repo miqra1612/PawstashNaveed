@@ -1,11 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuUIController : MonoBehaviour
 {
     public GameObject buttonContinue;
     public RectTransform allButtons;
+    private int eassyLeft;
+    private int mediumLeft;
+    private int hardLeft;
+    private int expertLeft;
+    private int giantLeft;
+
+
+    public Text[] levelText;
 
     public GameObject[] panels;
 
@@ -44,7 +53,7 @@ public class MenuUIController : MonoBehaviour
             ShowContinueButton();
         }
 
-        
+        GameLeftToday();
 
         AdsManager.instance.HideBanner();
     }
@@ -54,6 +63,27 @@ public class MenuUIController : MonoBehaviour
     {
         
     }
+
+    void GameLeftToday()
+    {
+        string a = SaveLoadData.instance.playerData.infinitePuzzle;
+
+        if(a != "true")
+        {
+            eassyLeft = SaveLoadData.instance.playerData.eassyGameLeft;
+            mediumLeft = SaveLoadData.instance.playerData.mediumGameLeft;
+            hardLeft = SaveLoadData.instance.playerData.hardGameLeft;
+            expertLeft = SaveLoadData.instance.playerData.expertGameLeft;
+            giantLeft = SaveLoadData.instance.playerData.giantGameLeft;
+
+            levelText[0].text = "Easy (" + eassyLeft + ")";
+            levelText[1].text = "Medium (" + mediumLeft + ")";
+            levelText[2].text = "Hard (" + hardLeft + ")";
+            levelText[3].text = "Expert (" + expertLeft + ")";
+            levelText[4].text = "Giant (" + giantLeft + ")";
+        }
+    }
+
 
     void ShowContinueButton()
     {

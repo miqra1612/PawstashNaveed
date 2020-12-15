@@ -25,6 +25,11 @@ public class SceneController : MonoBehaviour
         {
             PlayerPrefs.DeleteAll();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadLevel();
+        }
     }
 
     public void ChangeScene(string sceneName)

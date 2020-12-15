@@ -113,7 +113,7 @@ public class AdsManager : MonoBehaviour
 
         interstitial.Destroy();
 
-        if(GamesManager.instance.isPlaying == false)
+        if(GamesManager.instance.isPlaying == false && GamesManager.instance.duringGame == false)
         {
             SceneController.instance.ReloadLevel();
         }
@@ -143,7 +143,7 @@ public class AdsManager : MonoBehaviour
 
     private void HandleOnAdLoaded(object sender, EventArgs e)
     {
-        SettingManager.sg.DebugText("ads loaded");
+       // SettingManager.sg.DebugText("ads loaded");
     }
 
 
@@ -259,6 +259,7 @@ public class AdsManager : MonoBehaviour
         else
         {
             SceneController.instance.ReloadLevel();
+            
         }
     }
 
@@ -273,11 +274,7 @@ public class AdsManager : MonoBehaviour
             {
                 this.interstitial.Show();
             }
-            else
-            {
-
-                this.interstitial.Show();
-            }
+           
         }
     }
 

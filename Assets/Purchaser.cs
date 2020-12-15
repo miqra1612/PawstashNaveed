@@ -267,31 +267,46 @@ public class Purchaser : MonoBehaviour, IStoreListener
     
     public void CheckReceipt()
     {
-        DateTime puzzleDate = DateTime.Parse(SaveLoadData.instance.playerData.infinitePuzzlePurchaseDate);
-        DateTime adsFreeDate = DateTime.Parse(SaveLoadData.instance.playerData.adsFreePurchaseDate);
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            DateTime puzzleDate = DateTime.Parse(SaveLoadData.instance.playerData.infinitePuzzlePurchaseDate);
+            DateTime adsFreeDate = DateTime.Parse(SaveLoadData.instance.playerData.adsFreePurchaseDate);
 
-        int result1 = DateTime.Compare(puzzleDate, System.DateTime.Now);
-        int result2 = DateTime.Compare(adsFreeDate, System.DateTime.Now);
+            int result1 = 60;
+            int result2 = 60;
 
-        if(result1 <= 30)
-        {
-            SaveLoadData.instance.playerData.infinitePuzzle = "true";
-            SettingManager.sg.DebugText("receipt checked infinite puzzle");
-        }
-        else
-        {
-            SaveLoadData.instance.playerData.infinitePuzzle = "false";
-        }
+            if(SaveLoadData.instance.playerData.infinitePuzzlePurchaseDate != "")
+            {
+                result1 = DateTime.Compare(puzzleDate, System.DateTime.Now);
+            }
+           
+            if(SaveLoadData.instance.playerData.adsFreePurchaseDate != "")
+            {
+                result2 = DateTime.Compare(adsFreeDate, System.DateTime.Now);
+            }
+           
 
-        if (result2 <= 30)
-        {
-            SaveLoadData.instance.playerData.addFree = "true";
-            SettingManager.sg.DebugText("receipt checked ads free");
+            if (result1 <= 30)
+            {
+                SaveLoadData.instance.playerData.infinitePuzzle = "true";
+                SettingManager.sg.DebugText("receipt checked infinite puzzle");
+            }
+            else
+            {
+                SaveLoadData.instance.playerData.infinitePuzzle = "false";
+            }
+
+            if (result2 <= 30)
+            {
+                SaveLoadData.instance.playerData.addFree = "true";
+                SettingManager.sg.DebugText("receipt checked ads free");
+            }
+            else
+            {
+                SaveLoadData.instance.playerData.addFree = "false";
+            }
         }
-        else
-        {
-            SaveLoadData.instance.playerData.addFree = "false";
-        }
+       
 
 
         /*

@@ -16,6 +16,7 @@ public class GameUIController : MonoBehaviour
     public GameObject topPanel;
     public GameObject bottomPanel;
     public GameObject bottomReplayPanel;
+    public GameObject duringGameSolutionPanel;
     public Button infiniteTurnButton;
     public Button infiniteTimeButton;
     public Button exploderButton;
@@ -61,12 +62,22 @@ public class GameUIController : MonoBehaviour
         gameManager = GetComponent<GamesManager>();
         puzzleGenerator = GameObject.FindGameObjectWithTag("manager").GetComponent<PuzzleGenerator>();
         solutionNum = SaveLoadData.instance.playerData.solutions;
+      
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        if (gameManager.isPlaying)
+        {
+            PauseGame();
+        }
+      
     }
 
     public void ShowWinningResult(int finalScore,int todayWin)
@@ -97,9 +108,9 @@ public class GameUIController : MonoBehaviour
         {
             SaveLoadData.instance.playerData.eassyScore += score;
             SaveLoadData.instance.playerData.eassyTotalScore += finalScore;
-            SaveLoadData.instance.playerData.eassyGameLeft--;
+            
             SaveLoadData.instance.playerData.eassyGameWon++;
-            SaveLoadData.instance.playerData.eassyGamePlayed++;
+            
             SaveLoadData.instance.playerData.eassyWinRate = ((float)SaveLoadData.instance.playerData.eassyGameWon / (float)SaveLoadData.instance.playerData.eassyGamePlayed) * 100;
             SaveLoadData.instance.playerData.eassyBestTime = time;
             SaveLoadData.instance.playerData.eassyBestMinute = minute;
@@ -120,9 +131,9 @@ public class GameUIController : MonoBehaviour
         {
             SaveLoadData.instance.playerData.mediumScore += score;
             SaveLoadData.instance.playerData.mediumTotalScore += finalScore;
-            SaveLoadData.instance.playerData.mediumGameLeft--;
+            
             SaveLoadData.instance.playerData.mediumGameWon++;
-            SaveLoadData.instance.playerData.mediumGamePlayed++;
+           
             SaveLoadData.instance.playerData.mediumWinRate = ((float)SaveLoadData.instance.playerData.mediumGameWon / (float)SaveLoadData.instance.playerData.mediumGamePlayed) * 100;
             SaveLoadData.instance.playerData.mediumBestTime = time;
             SaveLoadData.instance.playerData.mediumBestMinute = minute;
@@ -141,9 +152,9 @@ public class GameUIController : MonoBehaviour
         {
             SaveLoadData.instance.playerData.hardScore += score;
             SaveLoadData.instance.playerData.hardTotalScore += finalScore;
-            SaveLoadData.instance.playerData.hardGameLeft--;
+            
             SaveLoadData.instance.playerData.hardGameWon++;
-            SaveLoadData.instance.playerData.hardGamePlayed++;
+            
             SaveLoadData.instance.playerData.hardWinRate = ((float)SaveLoadData.instance.playerData.hardGameWon / (float)SaveLoadData.instance.playerData.hardGamePlayed) * 100;
             SaveLoadData.instance.playerData.hardBestTime = time;
             SaveLoadData.instance.playerData.hardBestMinute = minute;
@@ -162,9 +173,9 @@ public class GameUIController : MonoBehaviour
         {
             SaveLoadData.instance.playerData.expertScore += score;
             SaveLoadData.instance.playerData.expertTotalScore += finalScore;
-            SaveLoadData.instance.playerData.expertGameLeft--;
+           
             SaveLoadData.instance.playerData.expertGameWon++;
-            SaveLoadData.instance.playerData.expertGamePlayed++;
+           
             SaveLoadData.instance.playerData.expertWinRate = ((float)SaveLoadData.instance.playerData.expertGameWon / (float)SaveLoadData.instance.playerData.expertGamePlayed) * 100;
             SaveLoadData.instance.playerData.expertBestTime = time;
             SaveLoadData.instance.playerData.expertBestMinute = minute;
@@ -183,9 +194,9 @@ public class GameUIController : MonoBehaviour
         {
             SaveLoadData.instance.playerData.giantScore += score;
             SaveLoadData.instance.playerData.giantTotalScore += finalScore;
-            SaveLoadData.instance.playerData.giantGameLeft--;
+           
             SaveLoadData.instance.playerData.giantGameWon++;
-            SaveLoadData.instance.playerData.giantGamePlayed++;
+           
             SaveLoadData.instance.playerData.giantWinRate = ((float)SaveLoadData.instance.playerData.giantGameWon / (float)SaveLoadData.instance.playerData.giantGamePlayed) * 100;
             SaveLoadData.instance.playerData.giantBestTime = time;
             SaveLoadData.instance.playerData.giantBestMinute = minute;
@@ -202,12 +213,14 @@ public class GameUIController : MonoBehaviour
            
         }
 
-        SaveLoadData.instance.playerData.continueGame = "false";
+       
         SaveLoadData.instance.playerData.gameStatus = "win";
 
         ChallengeManager.instance.CheckChallange();
         SaveLoadData.instance.SavingData();
     }
+
+   
 
     public void PauseGame()
     {
@@ -218,9 +231,17 @@ public class GameUIController : MonoBehaviour
             SaveLoadData.instance.playerData.tilesColor.Add(puzzleGenerator.generatedPuzzle[i].GetComponent<TilesColor>().colorID);
         }
 
-        SaveLoadData.instance.playerData.continueGame = "true";
-        SaveLoadData.instance.SavingData();
+        if (gameManager.isPlaying)
+        {
+            SaveLoadData.instance.playerData.continueGame = "true";
+        }
 
+        SaveLoadData.instance.playerData.seconds = gameManager.time;
+        SaveLoadData.instance.playerData.minutes = gameManager.minutes;
+        SaveLoadData.instance.playerData.turn = gameManager.turn;
+
+        SaveLoadData.instance.SavingData();
+        gameManager.isPlaying = false;
 
         gameManager.UIpanels[2].SetActive(true);
         PauseInfo();
@@ -232,6 +253,7 @@ public class GameUIController : MonoBehaviour
     {
         Time.timeScale = 1;
         gameManager.CloseAllPanel();
+        gameManager.isPlaying = true;
     }
 
     void PauseInfo()
@@ -244,41 +266,72 @@ public class GameUIController : MonoBehaviour
 
         if(a == 0)
         {
-            toolTipDisplay.text = "Use undo button to go back 1 step";
+            toolTipDisplay.text = "Use the undo button to go back 1 step.";
         }
         else if (a == 1)
         {
-            toolTipDisplay.text = "Finish challenges can give you usefull bonus";
+            toolTipDisplay.text = "Finish the game challenges can give you a useful bonus.";
         }
         else if (a == 2)
         {
-            toolTipDisplay.text = "Use flip button to flip the puzzle color";
+            toolTipDisplay.text = "Use the flip button to flip all tiles color.";
         }
         else if (a == 3)
         {
-            toolTipDisplay.text = "Pay attention to your time";
+            toolTipDisplay.text = "When playing the game, pay attention to your time.";
         }
         else if (a == 4)
         {
-            toolTipDisplay.text = "Infinity timer can give you infinite time";
+            toolTipDisplay.text = "Infinity timer can give you infinite time during the game.";
         }
     }
 
+    public void SaveAndExit()
+    {
+        UnPauseGame();
+        SceneController.instance.ChangeScene("Menu");
+    }
+
+    public void QuitPuzzle()
+    {
+        UnPauseGame();
+        GameOverInfo();
+        SceneController.instance.ChangeScene("Menu");
+    }
+
+    public void OpenExitPanel()
+    {
+        
+        ExitPuzzleWithoutFinishing();
+        
+        
+    }
+
+    
     public void ExitPuzzleWithoutFinishing()
     {
-        if(gameManager.isPlaying == true)
+        SaveLoadData.instance.playerData.tilesColor.Clear();
+
+        for (int i = 0; i < puzzleGenerator.generatedPuzzle.Count; i++)
         {
-            SaveLoadData.instance.playerData.tilesColor.Clear();
-
-            for (int i = 0; i < puzzleGenerator.generatedPuzzle.Count; i++)
-            {
-                SaveLoadData.instance.playerData.tilesColor.Add(puzzleGenerator.generatedPuzzle[i].GetComponent<TilesColor>().colorID);
-            }
-
-            SaveLoadData.instance.playerData.continueGame = "true";
-            SaveLoadData.instance.SavingData();
-
+            SaveLoadData.instance.playerData.tilesColor.Add(puzzleGenerator.generatedPuzzle[i].GetComponent<TilesColor>().colorID);
         }
+
+        if (gameManager.isPlaying)
+        {
+            SaveLoadData.instance.playerData.continueGame = "true";
+        }
+
+        SaveLoadData.instance.playerData.seconds = gameManager.time;
+        SaveLoadData.instance.playerData.minutes = gameManager.minutes;
+        SaveLoadData.instance.playerData.turn = gameManager.turn;
+
+        SaveLoadData.instance.SavingData();
+        gameManager.isPlaying = false;
+
+        gameManager.OpenPanel(3);
+        PauseInfo();
+        Time.timeScale = 0;
 
     }
 
@@ -287,6 +340,7 @@ public class GameUIController : MonoBehaviour
         string difficulty = gameManager.difficulty.text;
         vibration = PlayerPrefs.GetString("vibrate");
         SaveLoadData.instance.playerData.gameStatus = "fail";
+        SaveLoadData.instance.playerData.continueGame = "false";
         Solution.text = "Solution: " + solutionNum.ToString();
 
         if (vibration == "true")
@@ -296,11 +350,8 @@ public class GameUIController : MonoBehaviour
 
         if (difficulty == "Easy")
         {
-            
             if (SaveLoadData.instance.playerData.eassyGameLeft > 0)
             {
-                SaveLoadData.instance.playerData.eassyGameLeft--;
-                SaveLoadData.instance.playerData.eassyGamePlayed++;
                
                 if(SaveLoadData.instance.playerData.eassyGameWon < 1)
                 {
@@ -320,8 +371,6 @@ public class GameUIController : MonoBehaviour
         {
             if (SaveLoadData.instance.playerData.mediumGameLeft > 0)
             {
-                SaveLoadData.instance.playerData.mediumGameLeft--;
-                SaveLoadData.instance.playerData.mediumGamePlayed++;
                 
                 if (SaveLoadData.instance.playerData.mediumGameWon < 1)
                 {
@@ -340,8 +389,6 @@ public class GameUIController : MonoBehaviour
         {
             if (SaveLoadData.instance.playerData.hardGameLeft > 0)
             {
-                SaveLoadData.instance.playerData.hardGameLeft--;
-                SaveLoadData.instance.playerData.hardGamePlayed++;
                
                 if (SaveLoadData.instance.playerData.hardGameWon < 1)
                 {
@@ -360,8 +407,6 @@ public class GameUIController : MonoBehaviour
         {
             if (SaveLoadData.instance.playerData.expertGameLeft > 0)
             {
-                SaveLoadData.instance.playerData.expertGameLeft--;
-                SaveLoadData.instance.playerData.expertGamePlayed++;
                
                 if (SaveLoadData.instance.playerData.expertGameWon < 1)
                 {
@@ -380,8 +425,6 @@ public class GameUIController : MonoBehaviour
         {
             if(SaveLoadData.instance.playerData.giantGameLeft > 0)
             {
-                SaveLoadData.instance.playerData.giantGameLeft--;
-                SaveLoadData.instance.playerData.giantGamePlayed++;
                 
                 if (SaveLoadData.instance.playerData.giantGameWon < 1)
                 {

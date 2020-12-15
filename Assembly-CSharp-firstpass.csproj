@@ -695,6 +695,9 @@
     <Reference Include="Unity.2D.Sprite.Editor">
       <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Mobile.AndroidLogcat.Editor">
+      <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Library/ScriptAssemblies/Unity.Mobile.AndroidLogcat.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>E:/Documents/Project gue/Puzzle Box Change Color Game/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
     </Reference>

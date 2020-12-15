@@ -39,6 +39,11 @@ public class SaveLoadData : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+       
+    }
+
     public void SavingData()
     {
         string datas = JsonUtility.ToJson(playerData,true);

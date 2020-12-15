@@ -4220,6 +4220,10 @@ MonoBehaviour:
     continueGame: 
     date: 
     tilesColor: []
+    infinitePuzzlePurchaseID: 
+    infinitePuzzlePurchaseDate: 
+    adsFreePurchaseID: 
+    adsFreePurchaseDate: 
 --- !u!4 &216325724
 Transform:
   m_ObjectHideFlags: 0
@@ -26906,6 +26910,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonContinue: {fileID: 1412290066}
   allButtons: {fileID: 1640966978}
+  levelText:
+  - {fileID: 1158043223}
+  - {fileID: 1643413884}
+  - {fileID: 612064591}
+  - {fileID: 1394228081}
+  - {fileID: 869471668}
   panels:
   - {fileID: 47819688}
   - {fileID: 205421259}
