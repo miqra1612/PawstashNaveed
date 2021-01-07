@@ -70,9 +70,31 @@ public class GamesManager : MonoBehaviour
         time = SaveLoadData.instance.playerData.seconds;
         minutes = SaveLoadData.instance.playerData.minutes;
         turn = SaveLoadData.instance.playerData.turn;
-        
-        timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
-        turnDisplay.text = "Turn: " + turn.ToString("0");
+        infiniteTimer = bool.Parse(SaveLoadData.instance.playerData.useInfiniteTimer);
+        infiniteTurn = bool.Parse(SaveLoadData.instance.playerData.useInfiniteTurn);
+
+        if (infiniteTimer)
+        {
+            timeDisplay.text = "";
+            infiniteIconTimer.SetActive(true);
+            gameUIcontroler.infiniteTimeButton.interactable = false;
+        }
+        else
+        {
+            timeDisplay.text = minutes.ToString("00") + ":" + time.ToString("00");
+        }
+
+        if (infiniteTurn)
+        {
+            turnDisplay.text = "Turn: ";
+            infiniteIconTurn.SetActive(true);
+            gameUIcontroler.infiniteTurnButton.interactable = false;
+        }
+        else
+        {
+            turnDisplay.text = "Turn: " + turn.ToString("0");
+        }
+       
     }
 
     public void ShowRemainingSolution()
@@ -194,9 +216,10 @@ public class GamesManager : MonoBehaviour
         {
             if(infiniteTimer == true)
             {
-                time = 9999;
-                timeDisplay.text = " ";
-                infiniteIconTimer.SetActive(true);
+                SaveLoadData.instance.playerData.useInfiniteTimer = "true";
+                time = 60;
+                minutes = 99;
+                
             }
             else
             {
@@ -259,6 +282,7 @@ public class GamesManager : MonoBehaviour
     {
         if(infiniteTurn == true)
         {
+           
             turn = 999;
             turnDisplay.text = "Turn: ";
         }
@@ -344,9 +368,12 @@ public class GamesManager : MonoBehaviour
 
         if (a > 0)
         {
+            timeDisplay.text = " ";
+            infiniteIconTimer.SetActive(true);
             infiniteTimer = true;
             gameUIcontroler.infiniteTimeButton.interactable = false;
             SaveLoadData.instance.playerData.infinityTimer--;
+            SaveLoadData.instance.playerData.useInfiniteTimer = "true";
             value.text = SaveLoadData.instance.playerData.infinityTimer.ToString();
             SaveLoadData.instance.playerData.infiniteTimerUsed++;
 
@@ -364,6 +391,7 @@ public class GamesManager : MonoBehaviour
             infiniteTurn = true;
             gameUIcontroler.infiniteTurnButton.interactable = false;
             SaveLoadData.instance.playerData.infinityTurn--;
+            SaveLoadData.instance.playerData.useInfiniteTurn = "true";
             value.text = SaveLoadData.instance.playerData.infinityTurn.ToString();
             SaveLoadData.instance.playerData.infiniteTurnUsed++;
         }

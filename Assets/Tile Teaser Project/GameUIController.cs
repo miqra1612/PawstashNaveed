@@ -36,6 +36,8 @@ public class GameUIController : MonoBehaviour
     public Text toolTipDisplay;
     public Image toolTipImage;
     public Text difficultyDisplay;
+    public GameObject infiniteTurnIcon;
+    public GameObject infiniteTimerIcon;
     public Sprite[] toolTipSprite;
 
     [Header("This part for game over panel UI")]
@@ -258,9 +260,28 @@ public class GameUIController : MonoBehaviour
 
     void PauseInfo()
     {
-        timeLeftDisplay.text = gameManager.timeDisplay.text;
+        if (gameManager.infiniteTimer)
+        {
+            timeLeftDisplay.text = "";
+            infiniteTimerIcon.SetActive(true);
+        }
+        else
+        {
+            timeLeftDisplay.text = gameManager.timeDisplay.text;
+        }
+
+        if (gameManager.infiniteTurn)
+        {
+            turnLeftDisplay.text = "";
+            infiniteTurnIcon.SetActive(true);
+        }
+        else
+        {
+            turnLeftDisplay.text = gameManager.turn.ToString();
+        }
+
         difficultyDisplay.text = gameManager.difficulty.text;
-        turnLeftDisplay.text = gameManager.turn.ToString();
+        
 
         int a = Random.Range(0, 5);
 

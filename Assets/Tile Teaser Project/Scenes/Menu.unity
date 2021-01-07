@@ -4219,7 +4219,14 @@ MonoBehaviour:
     puzzleSize: 0
     continueGame: 
     date: 
+    seconds: 0
+    minutes: 0
+    turn: 0
+    useInfiniteTimer: false
+    useInfiniteTurn: false
     tilesColor: []
+    preclicksID: 
+    tilesBeginingColor: []
     infinitePuzzlePurchaseID: 
     infinitePuzzlePurchaseDate: 
     adsFreePurchaseID: 
@@ -18707,7 +18714,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -72.7, y: -20}
+  m_AnchoredPosition: {x: -72.7, y: 5000}
   m_SizeDelta: {x: 1020.61926, y: 206.66885}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1165615282

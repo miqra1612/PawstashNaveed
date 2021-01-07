@@ -109,6 +109,8 @@ public class PlayerData
     public float seconds;
     public int minutes;
     public int turn;
+    public string useInfiniteTimer = "false";
+    public string useInfiniteTurn = "false";
     public List<string> tilesColor;
     public List<int> preclicksID;
     public List<string> tilesBeginingColor;

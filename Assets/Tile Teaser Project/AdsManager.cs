@@ -47,7 +47,7 @@ public class AdsManager : MonoBehaviour
         #endif
 
         // Create a 320x50 banner at the top of the screen.
-        bannerView = new BannerView(bannerTestUnitId, AdSize.Banner, AdPosition.Bottom);
+        bannerView = new BannerView(yourAndroidBannerAdID, AdSize.Banner, AdPosition.Bottom);
 
         // Called when an ad request has successfully loaded.
         this.bannerView.OnAdLoaded += this.HandleOnAdLoaded;
@@ -83,7 +83,7 @@ public class AdsManager : MonoBehaviour
     #endif
 
         // Initialize an InterstitialAd.
-        this.interstitial = new InterstitialAd(adTestUnitId);
+        this.interstitial = new InterstitialAd(yourAndroidInsterstitialAdID);
         
         // Called when an ad request has successfully loaded.
         this.interstitial.OnAdLoaded += HandleOnAdLoaded;
@@ -154,7 +154,7 @@ public class AdsManager : MonoBehaviour
         //place your real rewarded ads unit here ( don't use real ads unit during test, always use test ID)
         string realRewardedUnitID = "ca-app-pub-1401014668068041/3961546724";
 
-        this.rewardedAd = new RewardedAd(rewardedUnitID);
+        this.rewardedAd = new RewardedAd(realRewardedUnitID);
 
         // Called when an ad request has successfully loaded.
         this.rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
